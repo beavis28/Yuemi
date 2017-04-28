@@ -1,0 +1,2 @@
+#!/bin/bash
+/Users/Mikey/Library/Android/sdk/tools/emulator -netdelay none -netspeed full -avd Nexus_6P_API_24
