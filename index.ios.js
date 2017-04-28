@@ -1,53 +1,31 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
-import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
+import { Provider } from "react-redux";
+import { createStore, applyMiddleware } from "redux";
+import reducer from "./modules/reducers/reducer.js";
+import { AppRegistry, View, Text } from 'react-native';
+import thunk from "redux-thunk";
+import { createLogger } from "redux-logger";
+console.disableYellowBox = true;
 
-export default class Yuemi extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
-      </View>
-    );
-  }
+import AppContainer from "./modules/containers/AppContainer.js";
+
+const logger = createLogger();
+const useLogger = true;
+let store;
+
+if(useLogger == true){
+  store = createStore(
+    reducer,
+    applyMiddleware(thunk, logger)
+  );
+} else {
+  store = createStore(reducer); // goes in else
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
+const App = () => (
+  <Provider store={store}>
+    <AppContainer/>
+  </Provider>
+);
 
-AppRegistry.registerComponent('Yuemi', () => Yuemi);
+AppRegistry.registerComponent('Yuemi', () => App);
