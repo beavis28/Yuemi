@@ -52,3 +52,22 @@ export const addRequest = (id) => {
 		id,
 	};
 };
+
+export const setPlaying = (obj) => {
+	return {
+		type: 'SET_PLAYING',
+		obj,
+	};
+};
+
+export const restoreDefaultSettings = () => {
+	return {
+		type: 'RESTORE_DEFAULT_SETTINGS',
+	};
+};
+
+export const purgeDownloads = () => {
+	return {
+		type: 'PURGE_DOWNLOADS',
+	};
+};

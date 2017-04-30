@@ -1,14 +1,14 @@
 import { connect } from 'react-redux';
 import { updateText, toggleSearching, updateVideoList, downloading } from '../actions/action.js';
 
-import App from '../components/App.js';
+import Search from '../components/Search.js';
 
 const mapStateToProps = (state) => {
 	return {
-		text: state.searchText,
-		videos: state.videoList,
-		isSearching: state.isSearching,
-		activeDownloads: state.activeDownloads,
+		text: state.search.searchText,
+		videos: state.search.videoList,
+		isSearching: state.search.isSearching,
+		activeDownloads: state.app.activeDownloads,
 	};
 };
 
@@ -29,5 +29,5 @@ const mapDispatchToProps = (dispatch) => {
 	};
 };
 
-const AppContainer = connect(mapStateToProps, mapDispatchToProps)(App);
-export default AppContainer;
+const SearchContainer = connect(mapStateToProps, mapDispatchToProps)(Search);
+export default SearchContainer;

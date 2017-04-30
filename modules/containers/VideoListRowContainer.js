@@ -7,6 +7,7 @@ import {
 	shiftDownloadQueue,
 	addToDownloaded,
 	addRequest,
+	setPlaying
 } from '../actions/action.js';
 
 const mapStateToProps = (state, ownProps) => {
@@ -14,10 +15,11 @@ const mapStateToProps = (state, ownProps) => {
 	const title = ownProps.data.title;
 	const d = {id, title};
 	return {
-		activeDownload: state.activeDownload,
-		downloadQueue: state.downloadQueue,
-		downloaded: state.downloaded,
-		requested: state.requested,
+		activeDownload: state.app.activeDownload,
+		downloadQueue: state.app.downloadQueue,
+		downloaded: state.downloaded.downloaded,
+		requested: state.app.requested,
+		playing: state.app.playing,
 
 		duration: ownProps.data.duration,
 		title: ownProps.data.title,
@@ -43,8 +45,11 @@ const mapDispatchToProps = (dispatch) => {
 		addRequest: (id) => {
 			dispatch(addRequest(id));
 		},
+		setPlaying: (title) => {
+			dispatch(setPlaying(title));
+		},
 	};
 };
 
-const AppContainer = connect(mapStateToProps, mapDispatchToProps)(VideoListRow);
-export default AppContainer;
+const VideoListRowContainer = connect(mapStateToProps, mapDispatchToProps)(VideoListRow);
+export default VideoListRowContainer;

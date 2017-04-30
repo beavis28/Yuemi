@@ -1,6 +1,12 @@
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
+	// textInputContainer: {
+	// 	backgroundColor: '#ff6666',
+	// 	position: 'absolute',
+	// 	top: 0,
+	// 	width: '100%',
+	// },
 	listRow: {
 		height: 100,
 		flex: 1,

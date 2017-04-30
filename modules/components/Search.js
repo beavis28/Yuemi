@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import VideoListRowContainer from '../containers/VideoListRowContainer';
 import styles from '../styles/styles';
 import { getVideos } from '../lib/get';
+
 import {
 	View,
 	Button,
@@ -10,12 +11,22 @@ import {
 	ActivityIndicator
 } from 'react-native';
 
-class App extends Component {
+import {
+	addNavigationHelpers,
+	StackNavigator,
+	TabNavigator
+} from 'react-navigation';
+
+class Search extends Component {
 
 	constructor({text, videos, updateText,
 				toggleSearching, isSearching, updateVideoList,
 				downloading, isDownloading}){
 		super();
+	}
+
+	componentWillMount(){ // hacky, find another way
+		this.props.navigation.navigate('Search');
 	}
 
 	updateVideos(){
@@ -27,10 +38,6 @@ class App extends Component {
 		});
 	}
 
-	downloadVideo(){
-
-	}
-
 	renderList(){
 		if(this.props.isSearching){
 			return (
@@ -40,7 +47,7 @@ class App extends Component {
 					style={styles.activityIndicator}
 				/>
 			);
-		} else if(!this.props.videos.length == 0) {
+		} else if(this.props.videos.length > 0) {
 			return (
 				<FlatList
 					data={this.props.videos}
@@ -62,18 +69,7 @@ class App extends Component {
 						onSubmitEditing={() => this.updateVideos()}
 						placeholder={'Search for some music.'}
 						style={styles.textInput}
-					/>
-				</View>
-				<View style={styles.mainButtons}>
-					<Button
-						onPress={() => this.updateVideos()}
-						title='SEARCH'
-						color='#841584'
-					/>
-					<Button
-						onPress={() => (this.props.updateText(''))}
-						title='CLEAR'
-						color='#ff8484'
+						selectTextOnFocus={true} //consider removing
 					/>
 				</View>
 				<View
@@ -84,4 +80,18 @@ class App extends Component {
 		);
 	}
 }
-export default App;
+export default Search;
+
+
+				// <view style={styles.mainbuttons}>
+				// 	<button
+				// 		onpress={() => this.updatevideos()}
+				// 		title='search'
+				// 		color='#841584'
+				// 	/>
+				// 	<button
+				// 		onpress={() => (this.props.updatetext(''))}
+				// 		title='clear'
+				// 		color='#ff8484'
+				// 	/>
+				// </view>

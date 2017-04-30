@@ -1,19 +1,17 @@
 const getInitialState = () => {
 	return {
-		videoList: [], // list of displayed videos
-		searchText: '',
-		isSearching: false,
 		activeDownload: {}, // one download object, id, title
 		downloadQueue: [], // list of download objects
-		downloaded: {}, // object of download objects (key is id)
 		requested: '',
+		playing: {soundObj: null, title: ''},
 	};
 };
 
 const copyState = (state) => {
 	return (
 		Object.assign({}, state, {
-			downloaded: Object.assign({}, state.downloaded)
+			downloaded: Object.assign({}, state.downloaded),
+			playing: Object.assign({}, state.playing),
 		})
 	);
 };
@@ -21,11 +19,6 @@ const copyState = (state) => {
 const reducer = (state=getInitialState(), action) => {
 	let newState;
 	switch(action.type){
-
-	case 'TOGGLE_SEARCHING':
-		newState = copyState(state);
-		newState.isSearching = action.value;
-		return newState;
 
 	case 'ADD_DOWNLOAD': {
 		newState = copyState(state);
@@ -45,27 +38,31 @@ const reducer = (state=getInitialState(), action) => {
 		return newState;
 	}
 
-	case 'UPDATE_TEXT':
-		newState = copyState(state);
-		newState.searchText = action.text;
-		return newState;
-
-	case 'UPDATE_VIDEO_LIST':
-		newState = copyState(state);
-		newState.videoList = action.videos;
-		return newState;
-
 	case 'ADD_TO_DOWNLOADED': {
 		newState = copyState(state);
 		const id = action.obj.id;
 		const title = action.obj.title;
 		newState.downloaded[id] = {title};
+		console.log(JSON.stringify(newState.downloaded));
 		return newState;
 	}
 
 	case 'ADD_REQUEST': {
 		newState = copyState(state);
 		newState.requested = action.id;
+		return newState;
+	}
+
+	case 'SET_PLAYING': {
+		newState = copyState(state);
+		newState.playing.soundObj = action.obj.soundObj;
+		newState.playing.title = action.obj.title;
+		return newState;
+	}
+
+	case 'RESTORE_DEFAULT_SETTINGS': {
+		newState = getInitialState();
+		newState.downloaded = Object.assign({}, state.downloaded);
 		return newState;
 	}
 

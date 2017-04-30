@@ -1,75 +1,65 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
-import reducer from './modules/reducers/reducer.js';
-import { AppRegistry } from 'react-native';
-import thunk from 'redux-thunk';
+import { AppRegistry, AsyncStorage, Text } from 'react-native';
+
+import { combineReducers, createStore, applyMiddleware, compose } from 'redux';
 import { createLogger } from 'redux-logger';
+import thunk from 'redux-thunk';
+
+import reducer from './modules/reducers/reducer.js';
+import downloaded from './modules/reducers/downloaded.js';
+import search from './modules/reducers/search.js';
+
+import { addNavigationHelpers } from 'react-navigation';
+import { Tabs } from './modules/routes/router';
+
+import { persistStore, autoRehydrate } from 'redux-persist';
+
 console.disableYellowBox = true;
 
-import AppContainer from './modules/containers/AppContainer.js';
+
+// NEED TO BLACKLIST & SPLIT NETWORKING REDUCERS
+
 
 const logger = createLogger();
 const useLogger = true;
 let store;
 
+const AppNavigator = Tabs;
+const initialState = AppNavigator.router.getStateForAction(
+	AppNavigator.router.getActionForPathAndParams('Search')
+);
+
+const navReducer = (state = initialState, action) => {
+	const nextState = AppNavigator.router.getStateForAction(action, state);
+	return nextState || state;
+};
+
+const appReducer = combineReducers({
+	nav: navReducer,
+	app: reducer,
+	downloaded,
+	search
+});
+
 if(useLogger == true){
 	store = createStore(
-	reducer,
-	applyMiddleware(thunk, logger)
+	appReducer,
+	compose(
+		applyMiddleware(thunk, logger),
+		autoRehydrate()
+	)
   );
 } else {
-	store = createStore(reducer);
+	store = createStore(appReducer);
 }
 
+persistStore(store, {storage: AsyncStorage, whitelist: ['downloaded', '']});
+
 const App = () => (
-  <Provider store={store}>
-	<AppContainer/>
-  </Provider>
+	<Provider store={store}>
+		<AppNavigator/>
+	</Provider>
 );
 
 AppRegistry.registerComponent('Yuemi', () => App);
-
-
-
-
-// TO PERSIST:
-// WARNING, DOWNLOAD HAS POTENTIAL OF GETTING STUCK
-// UPON RELOAD.
-// import React from 'react';
-// import { Provider } from 'react-redux';
-// import { compose, createStore, applyMiddleware } from 'redux';
-// import reducer from './modules/reducers/reducer.js';
-// import { AppRegistry, AsyncStorage } from 'react-native';
-// import thunk from 'redux-thunk';
-// import { createLogger } from 'redux-logger';
-// import { persistStore, autoRehydrate } from 'redux-persist';
-// console.disableYellowBox = true;
-
-// import AppContainer from './modules/containers/AppContainer.js';
-
-// const logger = createLogger();
-// const useLogger = true;
-// let store;
-
-// if(useLogger == true){
-// 	store = createStore(
-// 	reducer,
-// 	compose(
-// 		applyMiddleware(thunk, logger),
-// 		autoRehydrate()
-// 	)
-//   );
-// } else {
-// 	store = createStore(reducer);
-// }
-
-// persistStore(store, {storage: AsyncStorage});
-
-// const App = () => (
-//   <Provider store={store}>
-// 	<AppContainer/>
-//   </Provider>
-// );
-
-// AppRegistry.registerComponent('Yuemi', () => App);
