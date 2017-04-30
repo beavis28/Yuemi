@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { View, Text, Button, ActivityIndicator } from 'react-native';
 import styles from '../styles/styles';
-import { getDownload } from '../lib/get';
+import { getDownload, requestFile } from '../lib/get';
 
 class VideoListRow extends Component {
 	constructor({activeDownload, downloadQueue, shiftDownloadQueue,
 					addDownload, downloaded, setActiveDownload, 
-					addToDownloaded, title, duration, id
+					addRequest, addToDownloaded, title, duration, id,
+					requested
 				}){
 		super();
 	}
@@ -24,26 +25,29 @@ class VideoListRow extends Component {
 
 		// DO PREPARE DOWNLOAD STAGE, THEN SEND THE OK, THEN EXECUTE THE DOWNLOAD
 		// TO TAKE ADVANTAGE OF ASYNC. CONSIDER NOT USING ANDROID DOWNLOAD MANAGER
+
+		// APP SEVERAL PAGES WORKS OKAY, BUT CURR PAGE DOWNLOAD GETS CANCELLED
+		// WHEN PREV PAGE DOWNLOAD IS ACTIVATED.
 		const d = {id, title};
 		if(Object.keys(this.props.activeDownload).includes('id')){
 			this.props.addDownload(d);
 		} else {
-			this.props.setActiveDownload(d);
-			let promise = getDownload(id, title);
-			promise.then(() => {
-				if(this.props.downloadQueue.length > 0){
+			this.props.addRequest(id); // Should really be named set_request
+			requestFile(id).then(() => {
+				this.props.addRequest('');
+				this.props.setActiveDownload(d);
+				getDownload(id, title).then(() => {
 					this.props.addToDownloaded(d);
 					this.props.setActiveDownload({});
-					const dlq = this.props.downloadQueue; // distinction
-					// between shared info and component specidic info.
-					// close attention to props and recursion.
-					const nextDownload = dlq[0];
-					this.handleDownload(nextDownload.id, nextDownload.title);
-					this.props.shiftDownloadQueue();
-				} else {
-					this.props.addToDownloaded(d);
-					this.props.setActiveDownload({});
-				}
+					if(this.props.downloadQueue.length > 0){
+						const dlq = this.props.downloadQueue; // distinction
+						// between shared info and component specific info.
+						// close attention to props and recursion.
+						const nextDownload = dlq[0];
+						this.handleDownload(nextDownload.id, nextDownload.title);
+						this.props.shiftDownloadQueue();
+					}
+				});
 			});
 		}
 	}
@@ -58,21 +62,23 @@ class VideoListRow extends Component {
 	}
 
 	renderDownloadButton(){
+		console.log(this.props.activeDownload.id);
+		console.log(this.props.id);
+		console.log(this.props.title);
+		console.log(this.props.activeDownload.id == this.props.id);
 		// While downloading, if video is in activeDownload,
 		// render a spinner. Once finished, render button that
 		// says 'DOWNLOADED'.
 		let seconds = 0;
 		let durList = this.props.duration.split(':');
-
-		if(durList.length == 1){
-			seconds += durList[0];
-		} else if(durList.length == 2){
-			seconds += durList[0]*60 + durList[1];
-		} else {
-			seconds += 3600;
+		if(durList.length == 2){
+			seconds += parseInt(durList[0])*60 + parseInt(durList[1]);
+		} else if(durList.length == 3){
+			seconds = 3600;
 		}
 
 		if(seconds > 420){
+			console.log('IF STATEMENT ONE');
 			return (
 				<Button
 					style={styles.listButton}
@@ -82,6 +88,7 @@ class VideoListRow extends Component {
 				/>
 			);
 		} else if(this.props.activeDownload.id == this.props.id){
+			console.log('IF STATEMENT TWO');
 			return (
 				<ActivityIndicator
 					size='large'
@@ -90,6 +97,7 @@ class VideoListRow extends Component {
 				/>
 			);
 		} else if(this.props.id in this.props.downloaded){
+			console.log('IF STATEMENT THREE');
 			return (
 				<Button
 					style={styles.listButton}
@@ -99,12 +107,21 @@ class VideoListRow extends Component {
 				/>
 			);
 		} else if(this.includesId(this.props.id, this.props.downloadQueue)){
+			console.log('IF STATEMENT FOUR');
 			return (
 				<Text>
 					Waiting.
 				</Text>
 			);
+		} else if(this.props.requested.includes(this.props.id)){
+			console.log('IF STATEMENT FIVE');
+			return (
+				<Text>
+					Requested.
+				</Text>
+			);
 		} else {
+			console.log('IF STATEMENT SIX');
 			return (
 				<Button
 					style={styles.listButton}

@@ -45,3 +45,10 @@ export const addToDownloaded = (obj) => {
 		obj
 	};
 };
+
+export const addRequest = (id) => {
+	return {
+		type: 'ADD_REQUEST',
+		id,
+	};
+};

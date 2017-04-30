@@ -6,6 +6,7 @@ const getInitialState = () => {
 		activeDownload: {}, // one download object, id, title
 		downloadQueue: [], // list of download objects
 		downloaded: {}, // object of download objects (key is id)
+		requested: '',
 	};
 };
 
@@ -59,6 +60,12 @@ const reducer = (state=getInitialState(), action) => {
 		const id = action.obj.id;
 		const title = action.obj.title;
 		newState.downloaded[id] = {title};
+		return newState;
+	}
+
+	case 'ADD_REQUEST': {
+		newState = copyState(state);
+		newState.requested = action.id;
 		return newState;
 	}
 

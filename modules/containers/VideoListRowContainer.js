@@ -5,7 +5,8 @@ import {
 	toggleDownloading,
 	setActiveDownload,
 	shiftDownloadQueue,
-	addToDownloaded
+	addToDownloaded,
+	addRequest,
 } from '../actions/action.js';
 
 const mapStateToProps = (state, ownProps) => {
@@ -16,6 +17,7 @@ const mapStateToProps = (state, ownProps) => {
 		activeDownload: state.activeDownload,
 		downloadQueue: state.downloadQueue,
 		downloaded: state.downloaded,
+		requested: state.requested,
 
 		duration: ownProps.data.duration,
 		title: ownProps.data.title,
@@ -37,6 +39,9 @@ const mapDispatchToProps = (dispatch) => {
 		},
 		addToDownloaded: (obj) => {
 			dispatch(addToDownloaded(obj));
+		},
+		addRequest: (id) => {
+			dispatch(addRequest(id));
 		},
 	};
 };

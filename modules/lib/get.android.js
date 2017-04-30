@@ -20,6 +20,13 @@ export function getDownload(id, title){
 		});
 }
 
+export function requestFile(id){
+	return fetch('http://104.236.165.165/api/request_file/' + id)
+		.then((res) => {
+			console.log(res);
+		});
+}
+
 export function getVideos(text){
 	return fetch('http://104.236.165.165/api/search/' + text.split(' ').join('+'))
 		.then((response) => response.json())
