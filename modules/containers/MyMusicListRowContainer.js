@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import MyMusicListRow from '../components/MyMusicListRow.js';
-import { setPlaying } from '../actions/action.js';
+import { setPlaying, updateTime, updatePaused } from '../actions/action.js';
 
 const mapStateToProps = (state, ownProps) => {
 	return {
@@ -8,7 +8,9 @@ const mapStateToProps = (state, ownProps) => {
 		title: ownProps.song.title,
 		id: ownProps.song.id,
 
-		playing: state.app.playing,
+		paused: state.audio.paused,
+		playing: state.audio.playing,
+		current: state.audio,
 	};
 };
 
@@ -16,6 +18,12 @@ const mapDispatchToProps = (dispatch) => {
 	return {
 		setPlaying: (obj) => {
 			dispatch(setPlaying(obj));
+		},
+		updateTime: (seconds) => {
+			dispatch(updateTime(seconds));
+		},
+		updatePaused: (value) => {
+			dispatch(updatePaused(value));
 		},
 	};
 };

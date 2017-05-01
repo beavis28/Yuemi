@@ -6,8 +6,7 @@ import {
 	setActiveDownload,
 	shiftDownloadQueue,
 	addToDownloaded,
-	addRequest,
-	setPlaying
+	addRequest
 } from '../actions/action.js';
 
 const mapStateToProps = (state, ownProps) => {
@@ -17,9 +16,9 @@ const mapStateToProps = (state, ownProps) => {
 	return {
 		activeDownload: state.app.activeDownload,
 		downloadQueue: state.app.downloadQueue,
-		downloaded: state.downloaded.downloaded,
 		requested: state.app.requested,
-		playing: state.app.playing,
+		
+		downloaded: state.downloaded.downloaded,
 
 		duration: ownProps.data.duration,
 		title: ownProps.data.title,
@@ -44,9 +43,6 @@ const mapDispatchToProps = (dispatch) => {
 		},
 		addRequest: (id) => {
 			dispatch(addRequest(id));
-		},
-		setPlaying: (title) => {
-			dispatch(setPlaying(title));
 		},
 	};
 };

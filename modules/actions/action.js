@@ -71,3 +71,17 @@ export const purgeDownloads = () => {
 		type: 'PURGE_DOWNLOADS',
 	};
 };
+
+export const updateTime = (seconds) => {
+	return {
+		type: 'UPDATE_TIME',
+		seconds
+	};
+};
+
+export const updatePaused = (value) => {
+	return {
+		type: 'UPDATE_PAUSED',
+		value
+	};
+};

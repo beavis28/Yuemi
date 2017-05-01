@@ -10,18 +10,18 @@ class Settings extends Component {
 	render(){
 		return(
 			<View>
-			      <Button
-			        onPress={() => this.props.restoreDefaultSettings()}
-			        title={'RESTORE DEFAULT'}
-			      />
-			      <Button
-			        onPress={() => this.props.purgeDownloads()}
-			        title={'PURGE DOWNLOADS'}
-			      />
-			      <Button
-			        onPress={() => {console.log('Coming Soon.')}}
-			        title={'CONFIGURE SERVER'}
-			      />
+				<Button
+					onPress={() => this.props.restoreDefaultSettings()}
+					title={'RESTORE DEFAULT'}
+				/>
+				<Button
+					onPress={() => this.props.purgeDownloads()}
+					title={'PURGE DOWNLOADS'}
+				/>
+				<Button
+					onPress={() => {console.log('Coming Soon.');}}
+					title={'CONFIGURE SERVER'}
+				/>
 			</View>
 		);
 	}

@@ -3,7 +3,6 @@ const getInitialState = () => {
 		activeDownload: {}, // one download object, id, title
 		downloadQueue: [], // list of download objects
 		requested: '',
-		playing: {soundObj: null, title: ''},
 	};
 };
 
@@ -11,7 +10,6 @@ const copyState = (state) => {
 	return (
 		Object.assign({}, state, {
 			downloaded: Object.assign({}, state.downloaded),
-			playing: Object.assign({}, state.playing),
 		})
 	);
 };
@@ -50,13 +48,6 @@ const reducer = (state=getInitialState(), action) => {
 	case 'ADD_REQUEST': {
 		newState = copyState(state);
 		newState.requested = action.id;
-		return newState;
-	}
-
-	case 'SET_PLAYING': {
-		newState = copyState(state);
-		newState.playing.soundObj = action.obj.soundObj;
-		newState.playing.title = action.obj.title;
 		return newState;
 	}
 

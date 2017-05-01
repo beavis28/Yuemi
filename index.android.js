@@ -9,6 +9,7 @@ import thunk from 'redux-thunk';
 import reducer from './modules/reducers/reducer.js';
 import downloaded from './modules/reducers/downloaded.js';
 import search from './modules/reducers/search.js';
+import audio from './modules/reducers/audio.js';
 
 import { addNavigationHelpers } from 'react-navigation';
 import { Tabs } from './modules/routes/router';
@@ -22,7 +23,7 @@ console.disableYellowBox = true;
 
 
 const logger = createLogger();
-const useLogger = true;
+const useLogger = false;
 let store;
 
 const AppNavigator = Tabs;
@@ -39,7 +40,8 @@ const appReducer = combineReducers({
 	nav: navReducer,
 	app: reducer,
 	downloaded,
-	search
+	search,
+	audio
 });
 
 if(useLogger == true){
@@ -51,7 +53,12 @@ if(useLogger == true){
 	)
   );
 } else {
-	store = createStore(appReducer);
+	store = createStore(
+	appReducer,
+	compose(
+		autoRehydrate()
+	)
+  );
 }
 
 persistStore(store, {storage: AsyncStorage, whitelist: ['downloaded', '']});

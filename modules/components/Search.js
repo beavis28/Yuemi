@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import VideoListRowContainer from '../containers/VideoListRowContainer';
-import styles from '../styles/styles';
+import styles from '../styles/search';
 import { getVideos } from '../lib/get';
 
 import {
@@ -25,17 +25,15 @@ class Search extends Component {
 		super();
 	}
 
-	componentWillMount(){ // hacky, find another way
-		this.props.navigation.navigate('Search');
-	}
-
 	updateVideos(){
-		this.props.toggleSearching(true);
-		let videos = getVideos(this.props.text);
-		videos.then((videos) => {
-			this.props.updateVideoList(videos);
-			this.props.toggleSearching(false);
-		});
+		if(this.props.text != ''){
+			this.props.toggleSearching(true);
+			let videos = getVideos(this.props.text);
+			videos.then((videos) => {
+				this.props.updateVideoList(videos);
+				this.props.toggleSearching(false);
+			});
+		}
 	}
 
 	renderList(){
@@ -60,20 +58,17 @@ class Search extends Component {
 
 	render() {
 		return (
-			<View style={styles.container}>
-				<View style={styles.textInputContainer}>
-					<TextInput
-						value = {this.props.text}
-						onChangeText = {(text) => this.props.updateText(text)}
-						width = {300}
-						onSubmitEditing={() => this.updateVideos()}
-						placeholder={'Search for some music.'}
-						style={styles.textInput}
-						selectTextOnFocus={true} //consider removing
-					/>
-				</View>
-				<View
-					style={styles.hr}
+			<View style={styles.mainContainer}>
+				<TextInput
+					style={styles.textInput}
+					placeholderTextColor={'#fff'}
+					underlineColorAndroid={'#fff'}
+					value = {this.props.text}
+					onChangeText = {(text) => this.props.updateText(text)}
+					width = {'100%'}
+					onSubmitEditing={() => this.updateVideos()}
+					placeholder={'Search for some music.'}
+					selectTextOnFocus={true}
 				/>
 				{this.renderList()}
 			</View>
@@ -81,17 +76,3 @@ class Search extends Component {
 	}
 }
 export default Search;
-
-
-				// <view style={styles.mainbuttons}>
-				// 	<button
-				// 		onpress={() => this.updatevideos()}
-				// 		title='search'
-				// 		color='#841584'
-				// 	/>
-				// 	<button
-				// 		onpress={() => (this.props.updatetext(''))}
-				// 		title='clear'
-				// 		color='#ff8484'
-				// 	/>
-				// </view>

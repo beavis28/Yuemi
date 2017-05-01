@@ -4,7 +4,6 @@ import {
 	toggleSearching,
 	updateVideoList,
 	downloading,
-	setPlaying
 } from '../actions/action.js';
 
 import MyMusic from '../components/MyMusic';
@@ -12,15 +11,13 @@ import MyMusic from '../components/MyMusic';
 const mapStateToProps = (state) => {
 	return {
 		songs: state.downloaded.downloaded,
-		playing: state.app.playing,
+
+		playing: state.audio.playing,
 	};
 };
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		setPlaying: (obj) => {
-			dispatch(setPlaying(obj));
-		},
 	};
 };
 

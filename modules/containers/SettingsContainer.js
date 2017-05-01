@@ -11,10 +11,10 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
 	return {
 		restoreDefaultSettings: () => {
-			dispatch(restoreDefaultSettings())
+			dispatch(restoreDefaultSettings());
 		},
 		purgeDownloads: () => {
-			dispatch(purgeDownloads())
+			dispatch(purgeDownloads());
 		}
 	};
 };

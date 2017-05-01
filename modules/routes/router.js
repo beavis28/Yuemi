@@ -35,6 +35,7 @@ export const Tabs = TabNavigator({
 		inactiveTintColor: '#fff', //e60000
 		style: {
 			backgroundColor: '#ff6666',
+			elevation: 0,
 		},
 		labelStyle: {
 			fontSize: 15,

@@ -4,6 +4,8 @@ import BottomPlayer from '../components/BottomPlayer.js';
 
 const mapStateToProps = (state) => {
 	return {
+		current: state.audio,
+		seconds: state.audio.seconds,
 	};
 };
 
