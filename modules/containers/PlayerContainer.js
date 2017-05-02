@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import BottomPlayer from '../components/BottomPlayer.js';
+import Player from '../components/Player.js';
 import { setPlaying, updateTime, updatePaused } from '../actions/action.js';
 
 const mapStateToProps = (state) => {
@@ -24,5 +24,5 @@ const mapDispatchToProps = (dispatch) => {
 	};
 };
 
-const BottomPlayerContainer = connect(mapStateToProps, mapDispatchToProps)(BottomPlayer);
-export default BottomPlayerContainer;
+const PlayerContainer = connect(mapStateToProps, mapDispatchToProps)(Player);
+export default PlayerContainer;

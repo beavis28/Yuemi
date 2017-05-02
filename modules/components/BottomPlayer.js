@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
-import Slider from 'react-native-slider';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
 import styles from '../styles/styles';
 import { getTime, setTime } from '../lib/audio';
+import RNFetchBlob from 'react-native-fetch-blob';
+import { musicInterface } from '../lib/audio';
 
 class BottomPlayer extends Component {
 
-	constructor({current, seconds}){
+	constructor({current, seconds, updatePaused, setPaying, updateTime}){
 		super();
 	}
 
@@ -17,40 +18,55 @@ class BottomPlayer extends Component {
 		return `00${m}`.slice(-2) + ':' + `00${s}`.slice(-2);
 	}
 
+	getButton(){
+		if(this.props.current.paused){
+			return (
+				<Image
+					source={require('../../play.png')}
+					style={styles.playPauseImage}
+				/>
+			);
+		} else {
+			return (
+				<Image
+					source={require('../../pause.png')}
+					style={styles.playPauseImage}
+				/>
+			);
+		}
+	}
+
 	getToRender(){
 		// Shouldn't parse seconds of duration repeatedly. Just do it once.
 		// Duration counter lags on emulator.
 		// Reset slider to 0 on new song.
-		let title = this.props.current.title;
-		if(title.length > 20){
-			title = title.substr(0, 20) + '...';
-		}
 		if(this.props.current.title != ''){
 			return (
-				<View style={{width: '80%', height: '100%'}}>
+				<View style={styles.bottomPlayerContainer}>
+					<Image
+						source={{uri: 'file:///' + RNFetchBlob.fs.dirs.PictureDir + '/' + this.props.current.id + '.jpg'}}
+						style={{
+							width: 50,
+							height: 50,
+							marginLeft: 15,
+						}}
+					/>
 					<View style={styles.playingTextContainer}>
-						<Text style={{fontSize: 20, textAlign: 'center'}}>
-							{title}
+						<Text style={styles.playingText} numberOfLines={1}>
+							{this.props.current.title}
 						</Text>
-						<Text style={{fontSize: 20, textAlign: 'center', marginTop: 25}}>
+						<Text style={styles.playingText}>
 							{this.parseSeconds(this.props.seconds || 0) + ' / ' + this.parseSeconds(this.props.current.duration)}
 						</Text>
 					</View>
-					<View style={styles.sliderContainer}>
-						<Slider
-							trackStyle={styles.track}
-							thumbStyle={styles.thumb}
-							minimumTrackTintColor='#e60000'
-							maximumValue={this.props.current.duration}
-							value={this.props.seconds}
-							onValueChange={(value) => setTime(this.props.current.soundObj, value)}
-						/>
-					</View>
+					<TouchableOpacity onPress={() => musicInterface(this.props.current, this.props.updatePaused, this.props.setPlaying, this.props.updateTime)}>
+						{this.getButton()}
+					</TouchableOpacity>
 				</View>
 			);
 		} else {
 			return (
-				<Text style={{textAlign: 'center', fontSize: 20}}>
+				<Text style={styles.playingText}>
 					Pick a song.
 				</Text>
 			);

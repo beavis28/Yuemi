@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
 	bottomPlayer: {
-		flex: 2,
+		flex: 1,
 		backgroundColor: '#fdfdfd',
 		elevation: 5, // Not working.
 		borderColor: '#000', // Temporary
@@ -11,27 +11,29 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 		alignItems: 'center',
 	},
-	sliderContainer: {
+	bottomPlayerContainer: {
+		width: '80%',
+		height: '100%',
 		flex: 1,
+		flexDirection: 'row',
+		justifyContent: 'flex-start',
+		alignItems: 'center',
 	},
 	playingTextContainer: {
+		flex: 1,
+		flexDirection: 'column',
 		justifyContent: 'center',
-		alignItems: 'center',
-		flex: 2,
+		paddingLeft: 25,
 	},
-	track: {
-		height: 10,
-		borderRadius: 4,
-		backgroundColor: '#ff6666',
+	playingText: {
+		width: '75%',
+		fontSize: 20,
+		textAlign: 'left',
 	},
-	thumb: {
-		top: 24,
-		width: 20,
-		height: 20,
-		backgroundColor: '#e60000',
-		borderColor: '#e60000',
-		borderWidth: 5,
-		borderRadius: 10,
+	playPauseImage: {
+		width: 30,
+		height: 30,
+		marginRight: 55,
 	},
 	listContainer: {
 		padding: 12,

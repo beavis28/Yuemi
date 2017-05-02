@@ -22,6 +22,7 @@ export function endMusic(setPlaying, soundObj){
 }
 
 export function handleMusic(current, id, title, setPlaying, updateTime){
+	//instead of passing title consider just passing id and the id -> info(title) obj
 	if(current.soundObj != null){
 		stopAndReleaseSoundObject(current.soundObj);
 	}
@@ -75,4 +76,13 @@ export function resumeMusic(soundObj, updatePaused, setPlaying, updateTime){
 	});
 	setTimeout(() => sustainTimeLog(soundObj, updateTime), 1000);
 	updatePaused(false);
+}
+
+export function musicInterface(current, updatePaused, setPlaying, updateTime){
+	//instead of passing title consider just passing id and the id -> info(title) obj
+	if(current.paused){
+		resumeMusic(current.soundObj, updatePaused, setPlaying, updateTime);
+	} else {
+		pauseMusic(current.soundObj, updatePaused);
+	}
 }

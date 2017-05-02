@@ -9,6 +9,7 @@ import SearchContainer from '../containers/SearchContainer';
 import MyMusicContainer from '../containers/MyMusicContainer';
 import SettingsContainer from '../containers/SettingsContainer';
 import BottomPlayerContainer from '../containers/BottomPlayerContainer';
+import PlayerContainer from '../containers/PlayerContainer';
 
 export const Tabs = TabNavigator({
 	Settings: {
@@ -27,6 +28,12 @@ export const Tabs = TabNavigator({
 		screen: MyMusicContainer,
 		navigationOptions: {
 			tabBarLabel: 'MY MUSIC',
+		},
+	},
+	Player: {
+		screen: PlayerContainer,
+		navigationOptions: {
+			tabBarLabel: 'PLAYER',
 		},
 	},
 }, {
