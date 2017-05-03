@@ -85,3 +85,30 @@ export const updatePaused = (value) => {
 		value
 	};
 };
+
+export const setLoggedIn = () => {
+	return {
+		type: 'SET_LOGGED_IN',
+	};
+};
+
+export const setSearchBar = (value) => {
+	return {
+		type: 'SET_SEARCH_BAR',
+		value
+	};
+};
+
+export const updateFeed = (feedList) => {
+	return {
+		type: 'UPDATE_FEED',
+		feedList
+	};
+};
+
+export const addUser = (user) => {
+	return {
+		type: 'ADD_USER',
+		user
+	};
+};

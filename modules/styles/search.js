@@ -4,21 +4,20 @@ const styles = StyleSheet.create({
 	mainContainer: {
 		flex: 1,
 		flexDirection: 'column',
-		justifyContent: 'space-between',
+		justifyContent: 'center',
 		alignItems: 'center',
-		backgroundColor: '#fff',
+		backgroundColor: '#f5f5f5',
+	},
+	list: {
+		width: '100%',
 	},
 	textInput: {
-		backgroundColor: '#ff6666',
 		color: '#fff',
 	},
-	activityIndicator: {
-		marginTop: 50,
-	},
-	listSeparator: {
-		flex: 1,
-		height: 10,
-		backgroundColor: '#fff',
-	},
+	// listSeparator: {
+	// 	flex: 1,
+	// 	height: 10,
+	// 	backgroundColor: '#fff',
+	// },
 });
 export default styles;

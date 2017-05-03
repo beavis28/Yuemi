@@ -44,10 +44,6 @@ const styles = StyleSheet.create({
 		height: 50,
 		width: 50,
 	},
-
-
-
-
 	text: {
 		fontSize: 20,
 		textAlign: 'center',
@@ -58,7 +54,7 @@ const styles = StyleSheet.create({
 		backgroundColor: '#ff6666',
 	},
 	thumb: {
-		top: 49,
+		top: 48,
 		width: 20,
 		height: 20,
 		backgroundColor: '#e60000',

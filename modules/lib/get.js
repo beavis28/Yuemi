@@ -1,6 +1,6 @@
 import RNFetchBlob from 'react-native-fetch-blob';
 
-export function getDownload(id, title){
+export function getDownload(id, title, user, duration){
 	let url = 'http://104.236.165.165/api/download/' + id;
 	let musicDir = RNFetchBlob.fs.dirs.MusicDir + '/' + title + '.mp3';
 	return RNFetchBlob
@@ -9,13 +9,26 @@ export function getDownload(id, title){
 	})
     .fetch('GET', url)
 		.then((res) => {
-			console.log(res.path());
+			fetch('http://104.236.165.165/api/downloads/', {
+				method: 'POST',
+				headers: {
+					'Accept': 'application/json',
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					id,
+					title,
+					user,
+					duration
+				})
+			})
+				.then((res) => {
+					console.log(res);
+				});
 		});
 }
 
 export function getImage(id){
-
-
 	let url = 'http://i.ytimg.com/vi/' + id + '/hqdefault.jpg';
 	let imageDir = RNFetchBlob.fs.dirs.PictureDir + '/' + id + '.jpg';
 	return RNFetchBlob
@@ -39,4 +52,28 @@ export function getVideos(text){
 	return fetch('http://104.236.165.165/api/search/' + text.split(' ').join('+'))
 		.then((response) => response.json())
 		.then((json) => json.videos);
+}
+
+export function getFeed(updateFeed){
+	let feedList = [];
+	fetch('http://104.236.165.165/api/downloads')
+		.then((response) => response.json())
+		.then((json) => {
+			console.log(json);
+			json.forEach((elem) => feedList.push({id: elem._id, title: elem.title, users: elem.users, duration: elem.duration}));
+			updateFeed(feedList);
+		});
+}
+
+export function createUser(username){
+	return fetch('http://104.236.165.165/api/user', {
+		method: 'POST',
+		headers: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify({
+			username
+		})
+	});
 }

@@ -14,7 +14,7 @@ const copyState = (state) => {
 	);
 };
 
-const reducer = (state=getInitialState(), action) => {
+const app = (state=getInitialState(), action) => {
 	let newState;
 	switch(action.type){
 
@@ -63,4 +63,4 @@ const reducer = (state=getInitialState(), action) => {
 	}
 };
 
-export default reducer;
+export default app;

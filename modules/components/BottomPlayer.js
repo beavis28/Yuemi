@@ -4,6 +4,7 @@ import styles from '../styles/styles';
 import { getTime, setTime } from '../lib/audio';
 import RNFetchBlob from 'react-native-fetch-blob';
 import { musicInterface } from '../lib/audio';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 class BottomPlayer extends Component {
 
@@ -21,16 +22,20 @@ class BottomPlayer extends Component {
 	getButton(){
 		if(this.props.current.paused){
 			return (
-				<Image
-					source={require('../../play.png')}
-					style={styles.playPauseImage}
+				<Icon
+					style={styles.playPauseIcon}
+					name='play-arrow' size={30}
+					color='#000'
+					onPress={() => musicInterface(this.props.current, this.props.updatePaused, this.props.setPlaying, this.props.updateTime)}
 				/>
 			);
 		} else {
 			return (
-				<Image
-					source={require('../../pause.png')}
-					style={styles.playPauseImage}
+				<Icon
+					style={styles.playPauseIcon}
+					name='pause' size={30}
+					color='#000'
+					onPress={() => musicInterface(this.props.current, this.props.updatePaused, this.props.setPlaying, this.props.updateTime)}
 				/>
 			);
 		}
@@ -40,6 +45,7 @@ class BottomPlayer extends Component {
 		// Shouldn't parse seconds of duration repeatedly. Just do it once.
 		// Duration counter lags on emulator.
 		// Reset slider to 0 on new song.
+		// Style naming makes no sense.
 		if(this.props.current.title != ''){
 			return (
 				<View style={styles.bottomPlayerContainer}>
@@ -59,22 +65,44 @@ class BottomPlayer extends Component {
 							{this.parseSeconds(this.props.seconds || 0) + ' / ' + this.parseSeconds(this.props.current.duration)}
 						</Text>
 					</View>
-					<TouchableOpacity onPress={() => musicInterface(this.props.current, this.props.updatePaused, this.props.setPlaying, this.props.updateTime)}>
-						{this.getButton()}
-					</TouchableOpacity>
+					{this.getButton()}
 				</View>
 			);
 		} else {
 			return (
-				<Text style={styles.playingText}>
-					Pick a song.
-				</Text>
+				<View style={styles.bottomPlayerContainer}>
+					<Icon
+						style={{
+							width: 50,
+							height: 50,
+							marginLeft: 15,
+							textAlign: 'center',
+							textAlignVertical: 'center',
+						}}
+						name='library-music' size={30}
+						color='#000'
+					/>
+					<View style={styles.playingTextContainer}>
+						<Text style={styles.playingText} numberOfLines={1}>
+							Pick a song.
+						</Text>
+						<Text style={styles.playingText}>
+							{this.parseSeconds(this.props.seconds || 0) + ' / ' + this.parseSeconds(this.props.current.duration)}
+						</Text>
+					</View>
+					<Icon
+						style={styles.playPauseIcon}
+						name='play-arrow' size={30}
+						color='#000'
+						onPress={() => console.log('no song')}
+					/>
+				</View>
 			);
 		}
 	}
 
 	render(){
-		return(
+		return (
 			<View style={styles.bottomPlayer}>
 				{this.getToRender()}
 			</View>

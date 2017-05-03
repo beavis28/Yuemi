@@ -1,31 +1,31 @@
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
-	myMusicContainer: {
+	container: {
 		flex: 1,
-		width: '100%',
+		flexDirection: 'column',
+		justifyContent: 'flex-start',
+		alignItems: 'center',
 		backgroundColor: '#f5f5f5',
 	},
-	listRow: {
-		flex: 1,
+	subcontainer: {
+		height: 100,
+		width: '100%',
 		flexDirection: 'row',
 		justifyContent: 'flex-start',
 		alignItems: 'center',
-		height: 75,
+		backgroundColor: '#fafafa'
 	},
-	listTextPlaying: {
-		fontSize: 18,
-		width: 275,
+	icon: {
+		paddingLeft: 45,
+		fontSize: 30,
 		color: '#000',
-		textAlign: 'left',
-		paddingLeft: 40,
 	},
-	listText: {
-		width: 275,
-		fontSize: 18,
+	text: {
 		textAlign: 'left',
-		color: '#737373',
 		paddingLeft: 40,
+		fontSize: 20,
+		color: '#000',
 	},
 });
 export default styles;

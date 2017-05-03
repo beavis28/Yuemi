@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import styles from '../styles/myMusic';
 import MyMusicListRowContainer from '../containers/MyMusicListRowContainer';
 import RNFetchBlob from 'react-native-fetch-blob';
-import BottomPlayerContainer from '../containers/BottomPlayerContainer';
 import {
 	View,
 	Text,
@@ -15,10 +14,6 @@ class MyMusic extends Component {
 
 	constructor({playing}){
 		super();
-	}
-
-	componentWillMount(){
-		this.props.navigation.navigate('MyMusic');
 	}
 
 	getMusicList(){
@@ -38,20 +33,13 @@ class MyMusic extends Component {
 	render(){
 		return(
 			<View style={styles.myMusicContainer}>
-				<View style={styles.songsContainer}>
-					<FlatList
-						style={{
-							width: '103.5%',
-						}}
-						data={this.getMusicList()}
-						renderItem={({item}) => <MyMusicListRowContainer song={item}/>}
-					/>
-				</View>
-				<BottomPlayerContainer/>
+				<FlatList
+					data={this.getMusicList()}
+					renderItem={({item}) => <MyMusicListRowContainer song={item}/>}
+				/>
 			</View>
 		);
 	}
 }
 
 export default MyMusic;
-//ItemSeparatorComponent={() => <View style={styles.listSeparator}/>}

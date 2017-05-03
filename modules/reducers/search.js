@@ -3,6 +3,7 @@ const getInitialState = () => {
 		videoList: [], // list of displayed videos
 		searchText: '',
 		isSearching: false,
+		searchBarActive: false,
 	};
 };
 
@@ -12,7 +13,7 @@ const copyState = (state) => {
 	);
 };
 
-const downloaded = (state=getInitialState(), action) => {
+const search = (state=getInitialState(), action) => {
 	let newState;
 	switch(action.type){
 
@@ -31,10 +32,15 @@ const downloaded = (state=getInitialState(), action) => {
 		newState.videoList = action.videos;
 		return newState;
 
+	case 'SET_SEARCH_BAR':
+		newState = copyState(state);
+		newState.searchBarActive = action.value;
+		return newState;
+
 	default:
 		return state;
 
 	}
 };
 
-export default downloaded;
+export default search;

@@ -25,17 +25,6 @@ class Search extends Component {
 		super();
 	}
 
-	updateVideos(){
-		if(this.props.text != ''){
-			this.props.toggleSearching(true);
-			let videos = getVideos(this.props.text);
-			videos.then((videos) => {
-				this.props.updateVideoList(videos);
-				this.props.toggleSearching(false);
-			});
-		}
-	}
-
 	renderList(){
 		if(this.props.isSearching){
 			return (
@@ -48,6 +37,7 @@ class Search extends Component {
 		} else if(this.props.videos.length > 0) {
 			return (
 				<FlatList
+					style={styles.list}
 					data={this.props.videos}
 					renderItem={({item}) => <VideoListRowContainer data={item}/>}
 					ItemSeparatorComponent={() => <View style={styles.listSeparator}/>}
@@ -59,17 +49,6 @@ class Search extends Component {
 	render() {
 		return (
 			<View style={styles.mainContainer}>
-				<TextInput
-					style={styles.textInput}
-					placeholderTextColor={'#fff'}
-					underlineColorAndroid={'#fff'}
-					value = {this.props.text}
-					onChangeText = {(text) => this.props.updateText(text)}
-					width = {'100%'}
-					onSubmitEditing={() => this.updateVideos()}
-					placeholder={'Search for some music.'}
-					selectTextOnFocus={true}
-				/>
 				{this.renderList()}
 			</View>
 		);

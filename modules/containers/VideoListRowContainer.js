@@ -24,6 +24,8 @@ const mapStateToProps = (state, ownProps) => {
 		title: ownProps.data.title,
 		id: ownProps.data.id,
 		d,
+
+		user: state.user.username,
 	};
 };
 

@@ -19,7 +19,7 @@ const copyState = (state) => {
 	);
 };
 
-const downloaded = (state=getInitialState(), action) => {
+const audio = (state=getInitialState(), action) => {
 	let newState;
 	switch(action.type){
 
@@ -53,4 +53,4 @@ const downloaded = (state=getInitialState(), action) => {
 	}
 };
 
-export default downloaded;
+export default audio;

@@ -5,7 +5,6 @@ import Search from '../components/Search.js';
 
 const mapStateToProps = (state) => {
 	return {
-		text: state.search.searchText,
 		videos: state.search.videoList,
 		isSearching: state.search.isSearching,
 		activeDownloads: state.app.activeDownloads,
@@ -14,18 +13,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		updateText: (text) => {
-			dispatch(updateText(text));
-		},
-		toggleSearching: (value) => {
-			dispatch(toggleSearching(value));
-		},
 		downloading: (value) => {
 			dispatch(downloading(value));
 		},
-		updateVideoList: (videos) => {
-			dispatch(updateVideoList(videos));
-		}
 	};
 };
 

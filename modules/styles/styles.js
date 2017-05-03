@@ -1,12 +1,13 @@
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
+	rootNavContainer: {
+		flex: 7,
+	},
 	bottomPlayer: {
 		flex: 1,
-		backgroundColor: '#fdfdfd',
-		elevation: 5, // Not working.
-		borderColor: '#000', // Temporary
-		borderWidth: StyleSheet.hairlineWidth,
+		backgroundColor: '#fafafa',
+		elevation: 30,
 		flexDirection: 'row',
 		justifyContent: 'center',
 		alignItems: 'center',
@@ -30,7 +31,7 @@ const styles = StyleSheet.create({
 		fontSize: 20,
 		textAlign: 'left',
 	},
-	playPauseImage: {
+	playPauseIcon: {
 		width: 30,
 		height: 30,
 		marginRight: 55,

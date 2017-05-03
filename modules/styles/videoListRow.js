@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
 	listRowText: {
 		fontSize: 18,
 		textAlign: 'left',
+		paddingLeft: 30,
 		color: '#737373',
 	},
 	disabledListRow: {

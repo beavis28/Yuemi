@@ -8,13 +8,16 @@ class VideoListRow extends Component {
 	constructor({activeDownload, downloadQueue, shiftDownloadQueue,
 					addDownload, downloaded, setActiveDownload, 
 					addRequest, addToDownloaded, title, duration, id,
-					requested
+					requested, user
 				}){
 		super();
 	}
 
-	handleDownload(id, title){
+	handleDownload(){
 		// move logic out of component
+		// also this is just ugly as hell.
+		let id = this.props.id;
+		let title = this.props.title;
 		const d = {id, title};
 		if(Object.keys(this.props.activeDownload).includes('id')){
 			this.props.addDownload(d);
@@ -23,7 +26,7 @@ class VideoListRow extends Component {
 			requestFile(id).then(() => {
 				this.props.addRequest('');
 				this.props.setActiveDownload(d);
-				getDownload(id, title).then(() => {
+				getDownload(id, title, this.props.user, this.props.duration).then(() => {
 					this.props.addToDownloaded(d);
 					this.props.setActiveDownload({});
 					getImage(id);
@@ -73,7 +76,7 @@ class VideoListRow extends Component {
 		} else {
 			return (
 				<Button
-					onPress={() => this.handleDownload(this.props.id, this.props.title)}
+					onPress={() => this.handleDownload()}
 					title='DOWNLOAD'
 					color='#1990B8'
 				/>

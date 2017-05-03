@@ -41,6 +41,8 @@ class BottomPlayer extends Component {
 		// Shouldn't parse seconds of duration repeatedly. Just do it once.
 		// Duration counter lags on emulator.
 		// Reset slider to 0 on new song.
+		// code is now repeated, either pick a rancom song to start
+		// or pass in info
 		if(this.props.current.title != ''){
 			return (
 				<View style={styles.rootContainer}>
@@ -78,9 +80,41 @@ class BottomPlayer extends Component {
 			);
 		} else {
 			return (
-				<Text style={{textAlign: 'center', fontSize: 20}}>
-					Pick a song.
-				</Text>
+				<View style={styles.rootContainer}>
+					<View style={styles.textContainer}>
+						<Text style={styles.text}>
+							Pick a song.
+						</Text>
+						<Text style={styles.text}>
+							{this.parseSeconds(this.props.seconds || 0) + ' / ' + this.parseSeconds(this.props.current.duration)}
+						</Text>
+					</View>
+					<View style={styles.imageContainer}>
+						<Image
+							source={require('../../icon.png')}
+							style={styles.mainImage}
+						/>
+					</View>
+					<View style={styles.sliderContainer}>
+						<Slider
+							style={{height: '100%', width: '100%'}}
+							trackStyle={styles.track}
+							thumbStyle={styles.thumb}
+							minimumTrackTintColor='#e60000'
+							maximumValue={1}
+							value={0}
+							onValueChange={(value) => console.log('no song')}
+						/>
+					</View>
+					<View style={styles.playPauseImageContainer}>
+						<TouchableOpacity onPress={() => console.log('no song')}>
+							<Image
+								source={require('../../play.png')}
+								style={styles.playPauseImage}
+							/>
+						</TouchableOpacity>
+					</View>
+				</View>
 			);
 		}
 	}
@@ -95,17 +129,3 @@ class BottomPlayer extends Component {
 }
 
 export default BottomPlayer;
-
-
-					// <View style={styles.sliderContainer}>
-					// 	<Slider
-					// 		trackStyle={styles.track}
-					// 		thumbStyle={styles.thumb}
-					// 		minimumTrackTintColor='#e60000'
-					// 		maximumValue={this.props.current.duration}
-					// 		value={this.props.seconds}
-					// 		onValueChange={(value) => setTime(this.props.current.soundObj, value)}
-					// 	/>
-					// </View>
-
-

@@ -11,27 +11,10 @@ import styles from '../styles/myMusic';
 import { handleMusic, pauseMusic, resumeMusic } from '../lib/audio';
 import RNFetchBlob from 'react-native-fetch-blob';
 
-class MyMusicListRow extends Component {
+class FeedListRow extends Component {
 
 	constructor({current, songs, title, id, setPlaying, updateTime, updatePaused, paused}){
 		super();
-	}
-
-	musicInterface(){
-		// put this in audio file and just pass params
-		if(this.props.current.id != ''){
-			if(this.props.current.id == this.props.id){
-				if(this.props.paused){
-					resumeMusic(this.props.current.soundObj, this.props.updatePaused, this.props.setPlaying, this.props.updateTime);
-				} else {
-					pauseMusic(this.props.current.soundObj, this.props.updatePaused);
-				}
-			} else {
-				handleMusic(this.props.current, this.props.id, this.props.title, this.props.setPlaying, this.props.updateTime);
-			}
-		} else {
-			handleMusic(this.props.current, this.props.id, this.props.title, this.props.setPlaying, this.props.updateTime);
-		}
 	}
 
 	getToRender(){
@@ -72,11 +55,11 @@ class MyMusicListRow extends Component {
 
 	render(){
 		return (
-			<TouchableNativeFeedback onPress={() => this.musicInterface()}>
+			<TouchableNativeFeedback onPress={() => console.log('touched')}>
 				{this.getToRender()}
 			</TouchableNativeFeedback>
 		);
 	}
 }
 
-export default MyMusicListRow;
+export default FeedListRow;
