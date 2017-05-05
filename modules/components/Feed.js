@@ -1,40 +1,50 @@
 import React, { Component } from 'react';
-import styles from '../styles/myMusic';
 import FeedListRowContainer from '../containers/FeedListRowContainer';
-import RNFetchBlob from 'react-native-fetch-blob';
-import { getFeed } from '../lib/get';
+import styles from '../styles/feed';
+import { getVideos, getFeed } from '../lib/get';
+
 import {
 	View,
-	Text,
 	Button,
-	FlatList
+	TextInput,
+	FlatList,
+	ActivityIndicator
 } from 'react-native';
+
+import {
+	addNavigationHelpers,
+	StackNavigator,
+	TabNavigator
+} from 'react-navigation';
 
 class Feed extends Component {
 
-	constructor({playing}){
+	constructor({text, feedList}){
 		super();
 	}
 
-	componentDidMount(){ // development only
+	componentDidMount(){
 		this.props.navigation.navigate('Feed');
-		this.getFeedList();
-	}
-
-	getFeedList(){
 		getFeed(this.props.updateFeed);
 	}
 
-	render(){
-		return(
-			<View style={styles.myMusicContainer}>
+	render() {
+		return (
+			<View style={styles.mainContainer}>
 				<FlatList
+					style={styles.list}
 					data={this.props.feedList}
-					renderItem={({item}) => <Text>{item.id + ', ' + item.title + ', ' + item.users + ', ' + item.duration}</Text>}
+					renderItem={({item}) => <FeedListRowContainer data={item}/>}
 				/>
 			</View>
 		);
 	}
 }
-
 export default Feed;
+
+
+
+
+
+
+

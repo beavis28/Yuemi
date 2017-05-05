@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Root from '../components/Root';
-import { updateText, updateVideoList, downloading, toggleSearching } from '../actions/action.js';
+import { updateText, updateSearchList, downloading, toggleSearching } from '../actions/action.js';
 
 const mapStateToProps = (state) => {
 	return {
@@ -17,8 +17,8 @@ const mapDispatchToProps = (dispatch) => {
 		// toggleSearching: (value) => {
 		// 	dispatch(toggleSearching(value));
 		// },
-		// updateVideoList: (videos) => {
-		// 	dispatch(updateVideoList(videos));
+		// updateSearchList: (videos) => {
+		// 	dispatch(updateSearchList(videos));
 		// }
 	};
 };

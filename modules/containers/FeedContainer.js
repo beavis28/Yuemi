@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import {
 	updateText,
 	toggleSearching,
-	updateVideoList,
+	updateSearchList,
 	downloading,
 	updateFeed,
 } from '../actions/action.js';

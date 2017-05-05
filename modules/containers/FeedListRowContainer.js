@@ -1,29 +1,45 @@
 import { connect } from 'react-redux';
 import FeedListRow from '../components/FeedListRow.js';
-import { setPlaying, updateTime, updatePaused } from '../actions/action.js';
+import {
+	addDownload,
+	toggleDownloading,
+	setActiveDownload,
+	shiftDownloadQueue,
+	addToDownloaded,
+	addRequest
+} from '../actions/action.js';
 
 const mapStateToProps = (state, ownProps) => {
+	const id = ownProps.data.id;
+	const title = ownProps.data.title;
+	const d = {id, title};
 	return {
-		song: ownProps.song,
-		title: ownProps.song.title,
-		id: ownProps.song.id,
+		activeDownload: state.app.activeDownload,
+		downloadQueue: state.app.downloadQueue,
+		requested: state.app.requested,
+		
+		downloaded: state.downloaded.downloaded,
 
-		paused: state.audio.paused,
-		playing: state.audio.playing,
-		current: state.audio,
+		user: state.user.username,
 	};
 };
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		setPlaying: (obj) => {
-			dispatch(setPlaying(obj));
+		addDownload: (obj) => {
+			dispatch(addDownload(obj));
 		},
-		updateTime: (seconds) => {
-			dispatch(updateTime(seconds));
+		shiftDownloadQueue: () => {
+			dispatch(shiftDownloadQueue());
 		},
-		updatePaused: (value) => {
-			dispatch(updatePaused(value));
+		setActiveDownload: (obj) => {
+			dispatch(setActiveDownload(obj));
+		},
+		addToDownloaded: (obj) => {
+			dispatch(addToDownloaded(obj));
+		},
+		addRequest: (id) => {
+			dispatch(addRequest(id));
 		},
 	};
 };

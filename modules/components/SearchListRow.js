@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { View, Text, Button, ActivityIndicator } from 'react-native';
-import styles from '../styles/videoListRow';
+import styles from '../styles/searchListRow';
 import { getDownload, requestFile, getImage } from '../lib/get';
 import { handleMusic } from '../lib/audio';
 
-class VideoListRow extends Component {
+class SearchListRow extends Component {
 	constructor({activeDownload, downloadQueue, shiftDownloadQueue,
 					addDownload, downloaded, setActiveDownload, 
 					addRequest, addToDownloaded, title, duration, id,
@@ -124,15 +124,19 @@ class VideoListRow extends Component {
 		} else {
 			return ( // Fix styling
 				<View style={styles.listRow}>
-					<View style={styles.listRowTextContainer}>
-						<Text style={styles.listRowText} numberOfLines={2}>
-							{this.props.title}
-						</Text>
-						<Text style={styles.listRowText}>
-							{this.props.duration}
-						</Text>
+					<View style={styles.listRowTextSubcontainer}>
+						<View style={styles.listRowTextContainer}>
+							<Text style={styles.listRowText} numberOfLines={2}>
+								{this.props.title}
+							</Text>
+							<Text style={styles.listRowText}>
+								{this.props.duration}
+							</Text>
+						</View>
 					</View>
-					{this.renderDownloadButton()}
+					<View style={styles.downloadButtonContainer}>
+						{this.renderDownloadButton()}
+					</View>
 				</View>
 			);
 		}
@@ -147,4 +151,4 @@ class VideoListRow extends Component {
 	}
 }
 
-export default VideoListRow;
+export default SearchListRow;

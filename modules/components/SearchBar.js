@@ -7,7 +7,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 class SearchBar extends Component {
 
-	constructor({text, updateText, onBlur, toggleSearching, updateVideoList, handleSubmission}){
+	constructor({text, updateText, onBlur, toggleSearching, updateSearchList, handleSubmission}){
 		super();
 	}
 
@@ -20,7 +20,7 @@ class SearchBar extends Component {
 		this.props.toggleSearching(true);
 		let videos = getVideos(this.props.text);
 		videos.then((videos) => {
-			this.props.updateVideoList(videos);
+			this.props.updateSearchList(videos);
 			this.props.toggleSearching(false);
 		});
 	}

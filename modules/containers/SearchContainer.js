@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { updateText, toggleSearching, updateVideoList, downloading } from '../actions/action.js';
+import { updateText, toggleSearching, updateSearchList, downloading } from '../actions/action.js';
 
 import Search from '../components/Search.js';
 

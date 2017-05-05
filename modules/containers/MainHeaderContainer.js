@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import MainHeader from '../components/MainHeader';
-import { setSearchBar, updateText, updateVideoList, downloading, toggleSearching } from '../actions/action.js';
+import { setSearchBar, updateText, updateSearchList, downloading, toggleSearching } from '../actions/action.js';
 
 const mapStateToProps = (state) => {
 	return {
@@ -17,8 +17,8 @@ const mapDispatchToProps = (dispatch) => {
 		toggleSearching: (value) => {
 			dispatch(toggleSearching(value));
 		},
-		updateVideoList: (videos) => {
-			dispatch(updateVideoList(videos));
+		updateSearchList: (videos) => {
+			dispatch(updateSearchList(videos));
 		},
 		setSearchBar: (value) => {
 			dispatch(setSearchBar(value));

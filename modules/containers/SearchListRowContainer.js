@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import VideoListRow from '../components/VideoListRow.js';
+import SearchListRow from '../components/SearchListRow.js';
 import {
 	addDownload,
 	toggleDownloading,
@@ -49,5 +49,5 @@ const mapDispatchToProps = (dispatch) => {
 	};
 };
 
-const VideoListRowContainer = connect(mapStateToProps, mapDispatchToProps)(VideoListRow);
-export default VideoListRowContainer;
+const SearchListRowContainer = connect(mapStateToProps, mapDispatchToProps)(SearchListRow);
+export default SearchListRowContainer;

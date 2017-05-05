@@ -12,7 +12,7 @@ export const updateText = (text) => {
 	};
 };
 
-export const updateVideoList = (videos) => {
+export const updateSearchList = (videos) => {
 	return {
 		type: 'UPDATE_VIDEO_LIST',
 		videos

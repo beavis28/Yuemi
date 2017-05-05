@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import VideoListRowContainer from '../containers/VideoListRowContainer';
+import SearchListRowContainer from '../containers/SearchListRowContainer';
 import styles from '../styles/search';
 import { getVideos } from '../lib/get';
 
@@ -20,7 +20,7 @@ import {
 class Search extends Component {
 
 	constructor({text, videos, updateText,
-				toggleSearching, isSearching, updateVideoList,
+				toggleSearching, isSearching, updateSearchList,
 				downloading, isDownloading}){
 		super();
 	}
@@ -39,7 +39,7 @@ class Search extends Component {
 				<FlatList
 					style={styles.list}
 					data={this.props.videos}
-					renderItem={({item}) => <VideoListRowContainer data={item}/>}
+					renderItem={({item}) => <SearchListRowContainer data={item}/>}
 					ItemSeparatorComponent={() => <View style={styles.listSeparator}/>}
 				/>
 			);
