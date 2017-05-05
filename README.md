@@ -1,7 +1,3 @@
-# yuemi-native
-
-Yuemi's react-native app.
-
-TO DO:
-
-Add tabs and list of downloaded songs for playing.
+# YUEMI
+## You've never seen something so amazing.
+### Trust me.
