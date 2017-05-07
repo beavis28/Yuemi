@@ -121,3 +121,16 @@ export const addDownloadInfo = (id, obj) => {
 		obj
 	};
 };
+
+export const unsetPlaying = () => {
+	return {
+		type: 'UNSET_PLAYING'
+	};
+};
+
+export const setPlaylist = (list) => {
+	return {
+		type: 'SET_PLAYLIST',
+		list
+	};
+};

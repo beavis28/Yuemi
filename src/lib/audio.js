@@ -1,48 +1,59 @@
 import RNFetchBlob from 'react-native-fetch-blob';
 import Sound from 'react-native-sound';
+import _ from 'lodash';
+
+export function musicInterface(current, updatePaused, setPlaying, unsetPlaying, updateTime, id, paused, playlist){
+	if(current.id != ''){
+		if(current.id == id){
+			if(paused){
+				resumeMusic(current.soundObj, updatePaused, unsetPlaying, updateTime);
+			} else {
+				pauseMusic(current.soundObj, updatePaused);
+			}
+		} else {
+			playNew(current, id, setPlaying, unsetPlaying, updateTime, playlist);
+		}
+	} else {
+		playNew(current, id, setPlaying, unsetPlaying, updateTime, playlist);
+	}
+}
 
 export function stopAndReleaseSoundObject(soundObj){
 	soundObj.stop();
 	soundObj.release();
 }
 
-export function endMusic(setPlaying, soundObj){
+export function endMusic(unsetPlaying, soundObj){
 	stopAndReleaseSoundObject(soundObj);
-	setPlaying({
-		soundObj: null,
-		id: '',
-		title: '',
-		artist: '',
-		duration: 0,
-		seconds: 0,
-		paused: false,
-	});
-	// redundant but have to pass less stuff
-	// and this section is already complex enough.
+	unsetPlaying();
 }
 
-export function handleMusic(current, id, title, setPlaying, updateTime){
-	//instead of passing title consider just passing id and the id -> info(title) obj
+export function playNew(current, id, setPlaying, unsetPlaying, updateTime, playlist){
 	if(current.soundObj != null){
 		stopAndReleaseSoundObject(current.soundObj);
 	}
-	if(id == ''){
-		endMusic(setPlaying, current.soundObj);
-	} else {
-		let soundObj = new Sound('/' + id + '.mp3', RNFetchBlob.fs.dirs.DocumentDir, (error) => {
-			if (error) {
-				endMusic(setPlaying, soundObj);
+	let soundObj = new Sound('/' + id + '.mp3', RNFetchBlob.fs.dirs.DocumentDir, (error) => {
+		if (error) {
+			endMusic(unsetPlaying, soundObj);
+		} else {
+			let duration = soundObj.getDuration();
+			let next = {id, soundObj, duration};
+			setPlaying(next);
+			let callback;
+			if(playlist.length > 1){
+				callback = () => {
+					endMusic(unsetPlaying, soundObj);
+					playNew(current, playlist[1], setPlaying, unsetPlaying, updateTime, _.slice(playlist, 1));
+				};
 			} else {
-				let duration = soundObj.getDuration();
-				let next = {id, title, soundObj, duration};
-				setPlaying(next);
-				soundObj.play(() => {
-					endMusic(setPlaying, soundObj);
-				});
-				setTimeout(() => sustainTimeLog(soundObj, updateTime), 1000);
+				callback = () => {
+					endMusic(unsetPlaying, soundObj);
+				};
 			}
-		});
-	}
+			soundObj.play(callback);
+			setTimeout(() => sustainTimeLog(soundObj, updateTime), 1000);
+		}
+	});
 }
 
 export function sustainTimeLog(soundObj, updateTime){
@@ -67,22 +78,12 @@ export function pauseMusic(soundObj, updatePaused){
 	updatePaused(true);
 }
 
-export function resumeMusic(soundObj, updatePaused, setPlaying, updateTime){
-	console.log('SOUNDOBJ:', soundObj);
+export function resumeMusic(soundObj, updatePaused, unsetPlaying, updateTime){
 	soundObj.play(() => {
-		endMusic(setPlaying, soundObj);
+		endMusic(unsetPlaying, soundObj);
 	});
 	setTimeout(() => sustainTimeLog(soundObj, updateTime), 1000);
 	updatePaused(false);
-}
-
-export function musicInterface(current, updatePaused, setPlaying, updateTime){
-	//instead of passing title consider just passing id and the id -> info(title) obj
-	if(current.paused){
-		resumeMusic(current.soundObj, updatePaused, setPlaying, updateTime);
-	} else {
-		pauseMusic(current.soundObj, updatePaused);
-	}
 }
 
 export function shuffle(arr){

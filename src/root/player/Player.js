@@ -6,11 +6,13 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import styles from './styles';
 import { getTime, setTime, musicInterface } from 'Yuemi/src/lib/audio';
-import { setPlaying, updateTime, updatePaused } from 'Yuemi/src/action';
+import {
+	setPlaying, unsetPlaying, updateTime, updatePaused
+} from 'Yuemi/src/action';
 
 class Player extends Component {
 
-	constructor({current, seconds, updatePaused, setPaying, updateTime}){
+	constructor(){
 		super();
 	}
 
@@ -21,6 +23,18 @@ class Player extends Component {
 		return `00${m}`.slice(-2) + ':' + `00${s}`.slice(-2);
 	}
 
+	_musicInterface(){
+		const {
+			current, updatePaused, setPlaying,
+			unsetPlaying, updateTime, playlist
+		} = this.props;
+		musicInterface(
+			current, updatePaused, setPlaying,
+			unsetPlaying, updateTime, current.id,
+			current.paused, playlist
+		);
+	}
+
 	getButton(){
 		if(this.props.current.paused){
 			return (
@@ -28,7 +42,7 @@ class Player extends Component {
 					style={styles.playPauseIcon}
 					name='play-arrow' size={30}
 					color='#000'
-					onPress={() => musicInterface(this.props.current, this.props.updatePaused, this.props.setPlaying, this.props.updateTime)}
+					onPress={() => console.log('lol')}
 				/>
 			);
 		} else {
@@ -37,18 +51,14 @@ class Player extends Component {
 					style={styles.playPauseIcon}
 					name='pause' size={30}
 					color='#000'
-					onPress={() => musicInterface(this.props.current, this.props.updatePaused, this.props.setPlaying, this.props.updateTime)}
+					onPress={() => console.log('lol')}
 				/>
 			);
 		}
 	}
 
 	getToRender(){
-		// Shouldn't parse seconds of duration repeatedly. Just do it once.
-		// Duration counter lags on emulator.
-		// Reset slider to 0 on new song.
-		// Style naming makes no sense.
-		if(this.props.current.title != ''){
+		if(this.props.current.id != ''){
 			return (
 				<View style={styles.bottomPlayerContainer}>
 					<Image
@@ -61,7 +71,7 @@ class Player extends Component {
 					/>
 					<View style={styles.playingTextContainer}>
 						<Text style={styles.playingText} numberOfLines={1}>
-							{this.props.current.title}
+							{this.props.downloaded[this.props.current.id].title}
 						</Text>
 						<Text style={styles.playingText}>
 							{this.parseSeconds(this.props.seconds || 0) + ' / ' + this.parseSeconds(this.props.current.duration)}
@@ -116,6 +126,8 @@ const mapStateToProps = (state) => {
 	return {
 		current: state.audio,
 		seconds: state.audio.seconds,
+		downloaded: state.downloaded.downloaded,
+		playlist: state.playlist.playlist
 	};
 };
 
@@ -123,6 +135,9 @@ const mapDispatchToProps = (dispatch) => {
 	return {
 		setPlaying: (obj) => {
 			dispatch(setPlaying(obj));
+		},
+		unsetPlaying: () => {
+			dispatch(unsetPlaying());
 		},
 		updateTime: (seconds) => {
 			dispatch(updateTime(seconds));

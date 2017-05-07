@@ -5,14 +5,14 @@ import {
 	View, Text, TouchableNativeFeedback,
 	TouchableHighlight, Platform, Image
 } from 'react-native';
+import _ from 'lodash';
 
 import {
-	setPlaying, updateTime,
-	updatePaused
+	setPlaying, updateTime, updatePaused,
+	unsetPlaying, setPlaylist
 } from 'Yuemi/src/action';
 import {
-	handleMusic, pauseMusic,
-	resumeMusic
+	handleMusic, pauseMusic, resumeMusic, musicInterface
 } from 'Yuemi/src/lib/audio';
 import styles from './styles';
 
@@ -22,21 +22,26 @@ class Row extends Component {
 		super();
 	}
 
-	musicInterface(){
-		// put this in audio file and just pass params
-		if(this.props.current.id != ''){
-			if(this.props.current.id == this.props.id){
-				if(this.props.paused){
-					resumeMusic(this.props.current.soundObj, this.props.updatePaused, this.props.setPlaying, this.props.updateTime);
-				} else {
-					pauseMusic(this.props.current.soundObj, this.props.updatePaused);
-				}
-			} else {
-				handleMusic(this.props.current, this.props.id, this.props.title, this.props.setPlaying, this.props.updateTime);
-			}
-		} else {
-			handleMusic(this.props.current, this.props.id, this.props.title, this.props.setPlaying, this.props.updateTime);
+	_musicInterface(){
+		const {
+			current, updatePaused, setPlaying,
+			unsetPlaying, updateTime, id, paused,
+			downloaded
+		} = this.props;
+
+		const keys = _.keys(downloaded);
+		const index = _.indexOf(keys, id);
+		let arr;
+		if(index > -1){
+			arr = _.slice(keys, index);
+			this.props.setPlaylist(arr);
 		}
+
+		musicInterface(
+			current, updatePaused, setPlaying,
+			unsetPlaying, updateTime, id, paused,
+			arr
+		);
 	}
 
 	getImage(){
@@ -66,13 +71,13 @@ class Row extends Component {
 	render(){
 		if(Platform.OS == 'ios'){
 			return (
-				<TouchableHighlight onPress={() => this.musicInterface()} underlayColor='#ddd'>
+				<TouchableHighlight onPress={this._musicInterface.bind(this)} underlayColor='#ddd'>
 					{this.getToRender()}
 				</TouchableHighlight>
 			);
 		} else {
 			return (
-				<TouchableNativeFeedback onPress={() => this.musicInterface()}>
+				<TouchableNativeFeedback onPress={this._musicInterface.bind(this)}>
 					{this.getToRender()}
 				</TouchableNativeFeedback>
 			);
@@ -83,10 +88,11 @@ class Row extends Component {
 const mapStateToProps = (state, ownProps) => {
 	return {
 		paused: state.audio.paused,
-		playing: state.audio.playing,
 		current: state.audio,
 		id: ownProps.id,
+		downloaded: state.downloaded.downloaded,
 		title: state.downloaded.downloaded[ownProps.id].title,
+		playlist: state.playlist.playlist,
 	};
 };
 
@@ -95,11 +101,17 @@ const mapDispatchToProps = (dispatch) => {
 		setPlaying: (obj) => {
 			dispatch(setPlaying(obj));
 		},
+		unsetPlaying: () => {
+			dispatch(unsetPlaying());
+		},
 		updateTime: (seconds) => {
 			dispatch(updateTime(seconds));
 		},
 		updatePaused: (value) => {
 			dispatch(updatePaused(value));
+		},
+		setPlaylist: (list) => {
+			dispatch(setPlaylist(list));
 		},
 	};
 };
