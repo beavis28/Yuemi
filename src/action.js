@@ -134,3 +134,10 @@ export const setPlaylist = (list) => {
 		list
 	};
 };
+
+export const setAudio = (obj) => {
+	return {
+		type: 'SET_AUDIO',
+		obj
+	};
+};

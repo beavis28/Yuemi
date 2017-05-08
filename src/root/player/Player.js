@@ -24,15 +24,11 @@ class Player extends Component {
 	}
 
 	_musicInterface(){
-		const {
-			current, updatePaused, setPlaying,
-			unsetPlaying, updateTime, playlist
-		} = this.props;
-		musicInterface(
-			current, updatePaused, setPlaying,
-			unsetPlaying, updateTime, current.id,
-			current.paused, playlist
-		);
+		if(this.props.current.paused){
+			this.props.current.audio.playMusic();
+		} else {
+			this.props.current.audio.pauseMusic();
+		}
 	}
 
 	getButton(){
@@ -42,7 +38,7 @@ class Player extends Component {
 					style={styles.playPauseIcon}
 					name='play-arrow' size={30}
 					color='#000'
-					onPress={() => console.log('lol')}
+					onPress={this._musicInterface.bind(this)}
 				/>
 			);
 		} else {
@@ -51,7 +47,7 @@ class Player extends Component {
 					style={styles.playPauseIcon}
 					name='pause' size={30}
 					color='#000'
-					onPress={() => console.log('lol')}
+					onPress={this._musicInterface.bind(this)}
 				/>
 			);
 		}

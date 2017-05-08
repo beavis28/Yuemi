@@ -2,7 +2,7 @@ import { debug } from 'Yuemi/src/config';
 
 const getInitialState = () => {
 	return {
-		soundObj: null,
+		audio: null,
 		id: '',
 		artist: '',
 		duration: 0,
@@ -40,7 +40,6 @@ const audio = (state=getInitialState(), action) => {
 
 	case 'SET_PLAYING': {
 		newState = copyState(state);
-		newState.soundObj = action.obj.soundObj;
 		newState.id = action.obj.id;
 		newState.duration = action.obj.duration;
 		newState.seconds = action.obj.seconds;
@@ -50,6 +49,12 @@ const audio = (state=getInitialState(), action) => {
 
 	case 'UNSET_PLAYING': {
 		return getInitialState();
+	}
+
+	case 'SET_AUDIO': {
+		newState = copyState(state);
+		newState.audio = action.obj;
+		return newState;
 	}
 
 	default:

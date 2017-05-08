@@ -3,17 +3,16 @@ import { connect } from 'react-redux';
 import RNFetchBlob from 'react-native-fetch-blob';
 import {
 	View, Text, TouchableNativeFeedback,
-	TouchableHighlight, Platform, Image
+	TouchableHighlight, Platform, Image,
+	AsyncStorage
 } from 'react-native';
 import _ from 'lodash';
 
 import {
 	setPlaying, updateTime, updatePaused,
-	unsetPlaying, setPlaylist
+	unsetPlaying, setPlaylist, setAudio
 } from 'Yuemi/src/action';
-import {
-	handleMusic, pauseMusic, resumeMusic, musicInterface
-} from 'Yuemi/src/lib/audio';
+import Audio from 'Yuemi/src/lib/audio';
 import styles from './styles';
 
 class Row extends Component {
@@ -25,23 +24,30 @@ class Row extends Component {
 	_musicInterface(){
 		const {
 			current, updatePaused, setPlaying,
-			unsetPlaying, updateTime, id, paused,
-			downloaded
+			unsetPlaying, updateTime, id, downloaded
 		} = this.props;
+		let playlist = this._getDefaultPlaylist(downloaded, id);
+		let bundle = {
+			current, playlist,
+			unsetPlaying, setPlaying,
+			updateTime, updatePaused
+		};
+		if(this.props.current.audio != null){
+			this.props.current.audio.endMusic();
+		}
+		let audio = new Audio(bundle);
+		this.props.setAudio(audio);
+	}
 
+	_getDefaultPlaylist(downloaded, id){
 		const keys = _.keys(downloaded);
 		const index = _.indexOf(keys, id);
-		let arr;
+		let playlist;
 		if(index > -1){
-			arr = _.slice(keys, index);
-			this.props.setPlaylist(arr);
+			playlist = _.slice(keys, index);
+			this.props.setPlaylist(playlist);
 		}
-
-		musicInterface(
-			current, updatePaused, setPlaying,
-			unsetPlaying, updateTime, id, paused,
-			arr
-		);
+		return playlist;
 	}
 
 	getImage(){
@@ -112,6 +118,9 @@ const mapDispatchToProps = (dispatch) => {
 		},
 		setPlaylist: (list) => {
 			dispatch(setPlaylist(list));
+		},
+		setAudio: (obj) => {
+			dispatch(setAudio(obj));
 		},
 	};
 };
