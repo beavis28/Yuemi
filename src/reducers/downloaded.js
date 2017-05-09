@@ -12,7 +12,7 @@ const copyState = (state) => {
 		return JSON.parse(JSON.stringify(state));
 	}
 	
-	return JSON.parse(JSON.stringify(state));
+	return JSON.parse(JSON.stringify(state)); // need to fix
 };
 
 const download = (state=getInitialState(), action) => {
@@ -27,6 +27,12 @@ const download = (state=getInitialState(), action) => {
 
 	case 'PURGE_DOWNLOADS': {
 		return getInitialState();
+	}
+
+	case 'DELETE_SONG': {
+		newState = copyState(state);
+		delete newState.downloaded[action.id];
+		return newState;
 	}
 
 	default:

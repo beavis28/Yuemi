@@ -27,5 +27,20 @@ const styles = StyleSheet.create({
 		color: '#737373',
 		paddingLeft: 40,
 	},
+	menu: {
+		height: 75,
+		flex: 1,
+		flexDirection: 'row',
+		justifyContent: 'center',
+		alignItems: 'center',
+		backgroundColor: '#ff6666',
+	},
+	menuOption: {
+		height: '100%',
+		flex: 1,
+		flexDirection: 'row',
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
 });
 export default styles;

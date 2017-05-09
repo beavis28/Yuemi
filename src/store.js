@@ -15,6 +15,7 @@ import login from 'Yuemi/src/reducers/login';
 import feed from 'Yuemi/src/reducers/feed';
 import user from 'Yuemi/src/reducers/user';
 import playlist from 'Yuemi/src/reducers/playlist';
+import me from 'Yuemi/src/reducers/me';
 
 import RootContainer from 'Yuemi/src/root/Root';
 import { useLogger, reducerOnly } from 'Yuemi/src/config';
@@ -24,7 +25,7 @@ const logger = createLogger();
 const appReducer = combineReducers({
 	login, download, downloaded,
 	search, audio, feed, user,
-	playlist
+	playlist, me
 });
 
 let store;
@@ -48,7 +49,7 @@ if(reducerOnly == true){
 }
 
 persistStore(store, {storage: AsyncStorage, whitelist: ['downloaded', 'user', 'login']})
-//.purge()
+// .purge()
 ;
 
 export default store;

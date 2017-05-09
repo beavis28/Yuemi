@@ -141,3 +141,17 @@ export const setAudio = (obj) => {
 		obj
 	};
 };
+
+export const deleteSong = (id) => {
+	return {
+		type: 'DELETE_SONG',
+		id
+	};
+};
+
+export const setActiveMenu = (id) => {
+	return {
+		type: 'SET_ACTIVE_MENU',
+		id
+	};
+};
