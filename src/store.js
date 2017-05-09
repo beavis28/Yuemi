@@ -48,7 +48,7 @@ if(reducerOnly == true){
   );
 }
 
-persistStore(store, {storage: AsyncStorage, whitelist: ['downloaded', 'user', 'login']})
+persistStore(store, {storage: AsyncStorage, whitelist: ['downloaded', 'user', 'login', 'playlist']})
 // .purge()
 ;
 

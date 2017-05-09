@@ -9,6 +9,8 @@ import {
 import Me from 'Yuemi/src/root/me/Me';
 import Feed from 'Yuemi/src/root/feed/Feed';
 import Playlists from 'Yuemi/src/root/playlists/Playlists';
+import EditPlaylists from 'Yuemi/src/root/playlists/EditPlaylists';
+import CreatePlaylist from 'Yuemi/src/root/playlists/CreatePlaylist';
 import Header from 'Yuemi/src/root/header/Header';
 import Search from 'Yuemi/src/root/search/Search';
 import Settings from 'Yuemi/src/root/settings/Settings';
@@ -75,6 +77,16 @@ export const RootNav = StackNavigator({
 		screen: Settings,
 		navigationOptions: {
 			title: 'SETTINGS',
+			headerTintColor: '#fff',
+			headerStyle: {
+				backgroundColor: '#ff6666',
+			},
+		},
+	},
+	EditPlaylists: {
+		screen: EditPlaylists,
+		navigationOptions: {
+			title: 'EDIT PLAYLISTS',
 			headerTintColor: '#fff',
 			headerStyle: {
 				backgroundColor: '#ff6666',

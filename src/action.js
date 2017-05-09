@@ -155,3 +155,18 @@ export const setActiveMenu = (id) => {
 		id
 	};
 };
+
+export const addPlaylist = (name) => {
+	return {
+		type: 'ADD_PLAYLIST',
+		name
+	};
+};
+
+export const addToPlaylist = (list, song) => {
+	return {
+		type: 'ADD_TO_PLAYLIST',
+		list,
+		song
+	};
+};

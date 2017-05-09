@@ -2,7 +2,7 @@ import { debug } from 'Yuemi/src/config';
 
 const getInitialState = () => {
 	return {
-		loggedIn: false,
+		loggedIn: true,
 	};
 };
 

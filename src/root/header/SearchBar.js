@@ -53,14 +53,13 @@ class SearchBar extends Component {
 					underlineColorAndroid={'#fff'}
 					value = {this.state.text}
 					onChangeText = {(text) => this.setState({text})}
-					width = {'100%'}
+					width = '100%'
 					onSubmitEditing={() => this.handleSubmission()}
 					placeholder={'Search for some music.'}
 					autoCorrect={false}
 					onBlur={() => this.props.setSearchBar(false)}
 					autoFocus={true}
-					autoCorrect={false}
-					autoCapitalize={'none'}
+					autoCapitalize='none'
 				/>
 			</View>
 		);

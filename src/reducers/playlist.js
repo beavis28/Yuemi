@@ -1,8 +1,10 @@
 import { debug } from 'Yuemi/src/config';
+import _ from 'lodash';
 
 const getInitialState = () => {
 	return {
-		playlist: [],
+		playlist: [], // list of id
+		playlists: {}, // { playListName: [id] }
 	};
 };
 
@@ -12,9 +14,7 @@ const copyState = (state) => {
 		return JSON.parse(JSON.stringify(state));
 	}
 	
-	return (
-		Object.assign({}, state)
-	);
+	return JSON.parse(JSON.stringify(state));
 };
 
 const login = (state=getInitialState(), action) => {
@@ -24,6 +24,20 @@ const login = (state=getInitialState(), action) => {
 	case 'SET_PLAYLIST': {
 		newState = copyState(state);
 		newState.playlist = action.list;
+		return newState;
+	}
+
+	case 'ADD_PLAYLIST': {
+		newState = copyState(state);
+		newState.playlists[action.name] = [];
+		return newState;
+	}
+
+	case 'ADD_TO_PLAYLIST': {
+		newState = copyState(state);
+		if(!_.includes(newState.playlists[action.list], action.song)){
+			newState.playlists[action.list].push(action.song);
+		}
 		return newState;
 	}
 

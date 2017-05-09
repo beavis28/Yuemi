@@ -53,7 +53,8 @@ class Row extends Component {
 	}
 
 	_playlistAdd(){
-		console.log('WOO!');
+		this.props.setActiveMenu('');
+		this.props.navigation.navigate('EditPlaylists', {song: this.props.id});
 	}
 
 	_unlinkFile(){
