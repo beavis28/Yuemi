@@ -11,3 +11,4 @@ Trust me. 相信我。
 - take out topics
 - get images to show up immediately
 - on create playlist, modal slides up and transparency is ugly. set transparency before modal slides up
+- only use one vector font
