@@ -5,9 +5,10 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import RNFetchBlob from 'react-native-fetch-blob';
+import _ from 'lodash';
 
 import styles from './styles';
-import _ from 'lodash';
+import Playlist from './Playlist';
 
 class Playlists extends Component {
 
@@ -20,12 +21,11 @@ class Playlists extends Component {
 	}
 
 	playlistClick(playlist){
-		console.log(playlist);
+		this.props.navigation.navigate('Playlist', {playlist});
 	}
 
 	getPlaylist(name){
 		let playlist = this.props.playlists[name];
-		console.log('PLAYLIST: ', playlist);
 		return (
 			<View style={styles.playlistContainer}>
 				<TouchableWithoutFeedback onPress={() => this.playlistClick(playlist)}>

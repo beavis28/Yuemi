@@ -11,6 +11,7 @@ import Feed from 'Yuemi/src/root/feed/Feed';
 import Playlists from 'Yuemi/src/root/playlists/Playlists';
 import EditPlaylists from 'Yuemi/src/root/playlists/EditPlaylists';
 import CreatePlaylist from 'Yuemi/src/root/playlists/CreatePlaylist';
+import Playlist from 'Yuemi/src/root/playlists/Playlist';
 import Header from 'Yuemi/src/root/header/Header';
 import Search from 'Yuemi/src/root/search/Search';
 import Settings from 'Yuemi/src/root/settings/Settings';
@@ -87,6 +88,16 @@ export const RootNav = StackNavigator({
 		screen: EditPlaylists,
 		navigationOptions: {
 			title: 'EDIT PLAYLISTS',
+			headerTintColor: '#fff',
+			headerStyle: {
+				backgroundColor: '#ff6666',
+			},
+		},
+	},
+	Playlist: {
+		screen: Playlist,
+		navigationOptions: {
+			title: 'PLAYLIST',
 			headerTintColor: '#fff',
 			headerStyle: {
 				backgroundColor: '#ff6666',

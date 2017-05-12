@@ -18,7 +18,7 @@ class Music extends Component {
 	}
 
 	render(){
-		return( // IMPLEMENT USING ACTIVE PLAYLIST IN REDUX STORE INSTEAD OF PASSING	
+		return (
 			<View style={styles.myMusicContainer}>
 				<FlatList
 					data={this.props.playlist}

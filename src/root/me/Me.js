@@ -8,8 +8,8 @@ import {
 	updateText, toggleSearching,
 	updateSearchList, downloading
 } from 'Yuemi/src/action';
-import Row from './Row';
 import styles from './styles';
+import Music from 'Yuemi/src/root/music/Music';
 
 class Me extends Component {
 
@@ -18,15 +18,7 @@ class Me extends Component {
 	}
 
 	render(){
-		return(
-			<View style={styles.myMusicContainer}>
-				<FlatList
-					data={_.keys(this.props.downloaded)}
-					renderItem={({item}) => <Row id={item} navigation={this.props.navigation}/>}
-					keyExtractor={(item, index) => index}
-				/>
-			</View>
-		);
+		return <Music playlist={_.keys(this.props.downloaded)} navigation={this.props.navigation}/>;
 	}
 }
 

@@ -30,7 +30,6 @@ class EditPlaylists extends Component {
 	}
 
 	_setModal(b){
-		console.log();
 		this.setState({modalVisible: b});
 	}
 
