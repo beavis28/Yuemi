@@ -1,3 +1,3 @@
 export const debug = false;
-export const useLogger = true;
+export const useLogger = false;
 export const reducerOnly = false;

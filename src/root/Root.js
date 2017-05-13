@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import { connect } from 'react-redux';
 
-import { RootNav } from 'Yuemi/src/root/router';
+import { RootNav, PlayerNav } from 'Yuemi/src/root/router';
 import Login from 'Yuemi/src/root/login/Login';
-import Player from 'Yuemi/src/root/player/Player';
 
 class Root extends Component {
 

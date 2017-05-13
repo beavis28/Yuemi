@@ -14,12 +14,13 @@ class Audio {
 		this.updateTime = bundle.updateTime;
 		this.updatePaused = bundle.updatePaused;
 		// init
+		this.index = bundle.index;
 		this.playNew();
 	}
 
 	playNew(){
-		const id = this.playlist[0];
-		this.playlist = _.slice(this.playlist, 1);
+		const id = this.playlist[this.index];
+		this.index++;
 		if(this.soundObj != null){
 			this.stopAndReleaseSoundObject();
 		}
@@ -66,6 +67,19 @@ class Audio {
 	stopAndReleaseSoundObject(){
 		this.soundObj.stop();
 		this.soundObj.release();
+	}
+
+	skipNext(){
+		this.playNew();
+	}
+
+	skipPrev(){
+		if(this.index > 1){
+			this.index -= 2;
+		} else {
+			this.index--;
+		}
+		this.playNew();
 	}
 
 	endMusic(){

@@ -15,6 +15,7 @@ import Playlist from 'Yuemi/src/root/playlists/Playlist';
 import Header from 'Yuemi/src/root/header/Header';
 import Search from 'Yuemi/src/root/search/Search';
 import Settings from 'Yuemi/src/root/settings/Settings';
+import PlayerInfo from 'Yuemi/src/root/player/PlayerInfo';
 
 export const Tabs = TabNavigator({
 	MyMusic: {
@@ -54,6 +55,15 @@ export const Tabs = TabNavigator({
 		indicatorStyle: {
 			backgroundColor: '#ff6666',
 		},
+	},
+});
+
+export const PlayerNav = TabNavigator({
+	PlayerInfo: {
+		screen: PlayerInfo,
+	},
+	PlayerControl: {
+		screen: PlayerControl,
 	},
 });
 
@@ -105,4 +115,5 @@ export const RootNav = StackNavigator({
 		},
 	},
 });
+
 

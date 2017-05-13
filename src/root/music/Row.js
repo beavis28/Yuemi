@@ -28,11 +28,14 @@ class Row extends Component {
 			current, updatePaused, setPlaying,
 			unsetPlaying, updateTime, id, downloaded
 		} = this.props;
-		let playlist = this._getDefaultPlaylist(downloaded, id);
+		console.log(this.props);
+		let playlist = this.props.playlist;
+		let index = this._getPlaylistIndex(playlist, id);
 		let bundle = {
 			current, playlist,
 			unsetPlaying, setPlaying,
-			updateTime, updatePaused
+			updateTime, updatePaused,
+			index
 		};
 		if(this.props.current.audio != null){
 			this.props.current.audio.endMusic();
@@ -41,15 +44,12 @@ class Row extends Component {
 		this.props.setAudio(audio);
 	}
 
-	_getDefaultPlaylist(downloaded, id){
-		const keys = _.keys(downloaded);
-		const index = _.indexOf(keys, id);
-		let playlist;
+	_getPlaylistIndex(list, id){
+		const index = _.indexOf(list, id);
 		if(index > -1){
-			playlist = _.slice(keys, index);
-			this.props.setPlaylist(playlist);
+			return index;
 		}
-		return playlist;
+		return 0;
 	}
 
 	_playlistAdd(){
@@ -182,7 +182,6 @@ const mapStateToProps = (state, ownProps) => {
 		id: ownProps.id,
 		downloaded: state.downloaded.downloaded,
 		title: state.downloaded.downloaded[ownProps.id].title,
-		playlist: state.playlist.playlist,
 		activeMenuId: state.me.activeMenuId,
 	};
 };

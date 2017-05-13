@@ -18,6 +18,7 @@ class Playlist extends Component {
 	}
 
 	render(){
+		console.log(this.props.navigation.state.params.playlist);
 		return <Music playlist={this.props.navigation.state.params.playlist} navigation={this.props.navigation}/>;
 	}
 }

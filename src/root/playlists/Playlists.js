@@ -16,11 +16,8 @@ class Playlists extends Component {
 		super();
 	}
 
-	componentDidMount(){
-		this.props.navigation.navigate('Playlists');
-	}
-
 	playlistClick(playlist){
+		console.log('CLICKED: ', playlist);
 		this.props.navigation.navigate('Playlist', {playlist});
 	}
 

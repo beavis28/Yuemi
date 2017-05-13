@@ -5,17 +5,17 @@ const styles = StyleSheet.create({
 		flex: 7,
 	},
 	player: {
-		flex: 1,
+		height: 85,
+		width: '100%',
 		backgroundColor: '#fafafa',
 		elevation: 30,
 		flexDirection: 'row',
 		justifyContent: 'center',
 		alignItems: 'center',
 	},
-	bottomPlayerContainer: {
-		width: '80%',
+	playerContainer: {
 		height: '100%',
-		flex: 1,
+		width: '100%',
 		flexDirection: 'row',
 		justifyContent: 'flex-start',
 		alignItems: 'center',
@@ -34,7 +34,6 @@ const styles = StyleSheet.create({
 	playPauseIcon: {
 		width: 30,
 		height: 30,
-		marginRight: 55,
 	},
 	listContainer: {
 		padding: 12,
@@ -43,6 +42,18 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		width: 150,
+	},
+	playerDefaultImage: {
+		width: 50,
+		height: 50,
+		marginLeft: 15,
+		textAlign: 'center',
+		textAlignVertical: 'center',
+	},
+	playerImage: {
+		width: 50,
+		height: 50,
+		marginLeft: 15,
 	},
 });
 

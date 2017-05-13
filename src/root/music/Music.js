@@ -22,7 +22,7 @@ class Music extends Component {
 			<View style={styles.myMusicContainer}>
 				<FlatList
 					data={this.props.playlist}
-					renderItem={({item}) => <Row id={item} navigation={this.props.navigation}/>}
+					renderItem={({item}) => <Row id={item} playlist={this.props.playlist} navigation={this.props.navigation}/>}
 					keyExtractor={(item, index) => index}
 				/>
 			</View>
