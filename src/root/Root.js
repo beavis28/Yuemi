@@ -23,12 +23,20 @@ class Root extends Component {
 				</View>
 			);
 		} else {
-			return (
-				<View style={{flex: 1}}>
-					<RootNav style={{flex: 7}}/>
-					<Player/>
-				</View>
-			);
+			if(this.props.audio != null){
+				return (
+					<View style={{flex: 1}}>
+						<RootNav style={{flex: 7}}/>
+						<PlayerNav/>
+					</View>
+				);
+			} else {
+				return (
+					<View style={{flex: 1}}>
+						<RootNav style={{flex: 1}}/>
+					</View>
+				);
+			}
 		}
 	}
 
@@ -45,6 +53,7 @@ const mapStateToProps = (state) => {
 	return {
 		loggedIn: state.login.loggedIn,
 		searchBarActive: state.search.searchBarActive,
+		audio: state.audio.audio,
 	};
 };
 

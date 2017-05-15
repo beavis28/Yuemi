@@ -6,18 +6,23 @@ const styles = StyleSheet.create({
 	},
 	player: {
 		height: 85,
-		width: '100%',
 		backgroundColor: '#fafafa',
-		elevation: 30,
+		borderTopColor: '#000',
+		borderTopWidth: StyleSheet.hairlineWidth,
 		flexDirection: 'row',
 		justifyContent: 'center',
 		alignItems: 'center',
 	},
 	playerContainer: {
-		height: '100%',
-		width: '100%',
+		width: '90%',
 		flexDirection: 'row',
 		justifyContent: 'flex-start',
+		alignItems: 'center',
+	},
+	navIconContainer: {
+		width: '10%',
+		flexDirection: 'row',
+		justifyContent: 'center',
 		alignItems: 'center',
 	},
 	playingTextContainer: {
@@ -54,6 +59,43 @@ const styles = StyleSheet.create({
 		width: 50,
 		height: 50,
 		marginLeft: 15,
+	},
+	controlContent: {
+		flexDirection: 'column',
+		justifyContent: 'space-between',
+		alignItems: 'center',
+	},
+	track: {
+		height: 10,
+		borderRadius: 4,
+		backgroundColor: '#ff6666',
+	},
+	thumb: {
+		top: 27,
+		width: 20,
+		height: 20,
+		backgroundColor: '#e60000',
+		borderColor: '#e60000',
+		borderWidth: 5,
+		borderRadius: 10,
+	},
+	iconContainer: {
+		flexDirection: 'row',
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
+	sliderContainer: {
+		flexDirection: 'row',
+		justifyContent: 'center',
+		alignItems: 'center',
+		width: '85%',
+	},
+	playerSubcontainer: {
+		flexDirection: 'row',
+		justifyContent: 'center',
+		alignItems: 'center',
+		width: '100%',
+		height: '100%',
 	},
 });
 

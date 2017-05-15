@@ -8,7 +8,7 @@ Trust me. 相信我。
 
 ## To do:
 1. ~~skip and back buttons~~
-2. player with slider bar for skipping through music
+2. ~~player with slider bar for skipping through music~~
 3. setting for choosing where to download. Into music folder on android, etc.
 4. download from playlists (favorites)
 5. download playlists
@@ -26,13 +26,13 @@ Trust me. 相信我。
 17. Stop music on headphone pull out.
 18. Recommended.
 19. Add cancel button to download?
-20. Allow Chinese/unicode in URL (nginx?)
+20. ~~Allow Chinese/unicode in URL~~
 21. Search suggestions.
 22. Add queue to server
 23. Fix volume with ffmpeg
 24. Neural net to determine which songs are music
 25. Relay percent video dl to app
-26. Remove topics from results.
+26. ~~Remove topics from results.~~
 27. Settings deletes everything in documents dir. It should only delete songs in downloads obj.
 28. Make playlists tab look not ugly
 29. Get playlist name to show up in nav header
