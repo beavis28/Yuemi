@@ -40,6 +40,7 @@ export const Tabs = TabNavigator({
 }, {
 	tabBarComponent: TabBarTop,
 	tabBarPosition: 'top',
+	swipeEnabled: true,
 	tabBarOptions: {
 		activeTintColor: '#fff',
 		inactiveTintColor: '#fff',
@@ -72,6 +73,7 @@ export const PlayerNav = TabNavigator({
 			height: 0,
 		},
 	},
+	swipeEnabled: true,
 });
 
 export const RootNav = StackNavigator({

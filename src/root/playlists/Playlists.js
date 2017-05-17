@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 import {
 	View, Text, FlatList, Image,
-	TouchableWithoutFeedback
+	TouchableWithoutFeedback,
+	Alert
 } from 'react-native';
 import { connect } from 'react-redux';
 import RNFetchBlob from 'react-native-fetch-blob';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import _ from 'lodash';
 
 import styles from './styles';
 import Playlist from './Playlist';
+import { deletePlaylist } from 'Yuemi/src/action.js';
 
 class Playlists extends Component {
 
@@ -21,11 +24,22 @@ class Playlists extends Component {
 		this.props.navigation.navigate('Playlist', {playlist});
 	}
 
+	moreClick(name){
+		Alert.alert(
+			'Delete Playlist',
+			'Are you sure you want to delete this playlist?',
+			[
+				{text: 'YES', onPress: () => this.props.deletePlaylist(name)},
+				{text: 'CANCEL'},
+			]
+		);
+	}
+
 	getPlaylist(name){
 		let playlist = this.props.playlists[name];
 		return (
 			<View style={styles.playlistContainer}>
-				<TouchableWithoutFeedback onPress={() => this.playlistClick(playlist)}>
+				<TouchableWithoutFeedback onPress={() => this.playlistClick(name)}>
 					<View
 						style={styles.playlistCard}
 						elevation={5}
@@ -58,6 +72,11 @@ class Playlists extends Component {
 						</View>
 						<View style={styles.cardBottom}>
 							<Text style={styles.cardText}>{name}</Text>
+							<Icon
+								style={styles.icon}
+								name='more-vert'
+								onPress={() => this.moreClick(name)}
+							/>
 						</View>
 					</View>
 				</TouchableWithoutFeedback>
@@ -86,6 +105,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
+		deletePlaylist: (name) => {
+			dispatch(deletePlaylist(name));
+		},
 	};
 };
 

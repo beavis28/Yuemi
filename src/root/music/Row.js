@@ -58,6 +58,9 @@ class Row extends Component {
 	}
 
 	_unlinkFile(){
+		if(this.props.current.audio != null){
+			this.props.current.audio.endMusic();
+		}
 		const path = RNFetchBlob.fs.dirs.DocumentDir + '/' + this.props.id;
 		RNFetchBlob.fs.unlink(path + '.mp3')
 		.then(() => {
@@ -167,6 +170,7 @@ class Row extends Component {
 	}
 
 	render(){
+		console.log('RERENDERING');
 		if(this.props.activeMenuId == this.props.id){
 			return this.renderMenu();
 		} else {

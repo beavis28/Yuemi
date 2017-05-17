@@ -10,7 +10,7 @@ import {
 
 import styles from './styles';
 import settings from './data';
-import { restoreDefaultSettings, purgeDownloads } from 'Yuemi/src/action';
+import { restoreDefaultSettings, purgeDownloads, purgePlaylists } from 'Yuemi/src/action';
 
 class Settings extends Component {
 
@@ -40,22 +40,31 @@ class Settings extends Component {
 			this.props.restoreDefaultSettings();
 			break;
 
+		case 'PURGE_PLAYLISTS':
+			this.props.purgePlaylists();
+			break;
+
 		}
 	}
 
 	_purgeDownloads(){
+		if(this.props.current.audio != null){
+			this.props.current.audio.endMusic();
+		}
 		const dir = RNFetchBlob.fs.dirs.DocumentDir;
 		RNFetchBlob.fs.ls(dir)
 		.then((files) => {
 			console.log('DOCUMENT_DIR_BEFORE:', files);
 			_.forEach(files, (value) => {
-				RNFetchBlob.fs.unlink(dir + '/' + value)
-				.then(() => {
-					console.log('DELETED:', dir + '/' + value);
-				})
-				.catch((err) => {
-					console.log('ERR: ', err);
-				});
+				if(_.includes(this.props.downloaded, value)){
+					RNFetchBlob.fs.unlink(dir + '/' + value)
+					.then(() => {
+						console.log('DELETED:', dir + '/' + value);
+					})
+					.catch((err) => {
+						console.log('ERR: ', err);
+					});
+				}
 			});
 			console.log(files);
 			this.props.purgeDownloads();
@@ -110,6 +119,7 @@ class Settings extends Component {
 const mapStateToProps = (state) => {
 	return {
 		downloaded: state.downloaded.downloaded,
+		current: state.audio,
 	};
 };
 
@@ -120,6 +130,9 @@ const mapDispatchToProps = (dispatch) => {
 		},
 		purgeDownloads: () => {
 			dispatch(purgeDownloads());
+		},
+		purgePlaylists: () => {
+			dispatch(purgePlaylists());
 		}
 	};
 };

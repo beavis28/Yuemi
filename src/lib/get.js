@@ -39,6 +39,7 @@ export function getImage(id){
 }
 
 export function requestFile(id){
+	console.log('REQUESTED FILE');
 	return fetch('http://104.236.165.165/api/request_file/' + id)
 		.then((res) => {
 			console.log(res);

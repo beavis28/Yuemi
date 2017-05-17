@@ -32,6 +32,7 @@ const download = (state=getInitialState(), action) => {
 	case 'DELETE_SONG': {
 		newState = copyState(state);
 		delete newState.downloaded[action.id];
+		console.log(newState);
 		return newState;
 	}
 

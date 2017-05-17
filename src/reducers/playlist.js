@@ -41,6 +41,32 @@ const login = (state=getInitialState(), action) => {
 		return newState;
 	}
 
+	case 'PURGE_PLAYLISTS': {
+		newState = copyState(state);
+		newState.playlists = {};
+		return newState;
+	}
+
+	case 'DELETE_SONG': {
+		newState = copyState(state);
+		let keys = _.keys(newState.playlists);
+		let cur;
+		_.each(keys, (key) => {
+			cur = newState.playlists[key];
+			_.remove(cur, (id) => {
+				console.log(action.id, id, action.id == id);
+				return action.id == id;
+			})
+		});
+		return newState;
+	}
+
+	case 'DELETE_PLAYLIST': {
+		newState = copyState(state);
+		delete newState.playlists[action.name];
+		return newState;
+	}
+
 	default:
 		return state;
 

@@ -12,7 +12,7 @@ Trust me. 相信我。
 3. setting for choosing where to download. Into music folder on android, etc.
 4. download from playlists (favorites)
 5. download playlists
-6. on create playlist, modal slides up and transparency is ugly. set transparency before modal slides up
+6. ~~on create playlist, modal slides up and transparency is ugly. set transparency before modal slides up~~
 7. only use one vector font
 8. Fix settings and player and feed and Me (the three dots are padded) styling
 9. Fix downloads (get rid of request phase. do it but don't display it/log it.)
@@ -33,7 +33,7 @@ Trust me. 相信我。
 24. Neural net to determine which songs are music
 25. Relay percent video dl to app
 26. ~~Remove topics from results.~~
-27. Settings deletes everything in documents dir. It should only delete songs in downloads obj.
+27. ~~Settings deletes everything in documents dir. It should only delete songs in downloads obj.~~
 28. Make playlists tab look not ugly
 29. Get playlist name to show up in nav header
 30. Remove playlist option

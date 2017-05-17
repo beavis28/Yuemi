@@ -18,13 +18,17 @@ class Playlist extends Component {
 	}
 
 	render(){
+		console.log('ON PLAYLISTS');
 		console.log(this.props.navigation.state.params.playlist);
-		return <Music playlist={this.props.navigation.state.params.playlist} navigation={this.props.navigation}/>;
+		let playlistName = this.props.navigation.state.params.playlist;
+		let playlist = this.props.playlists[playlistName];
+		return <Music playlist={playlist} navigation={this.props.navigation}/>;
 	}
 }
 
 const mapStateToProps = (state) => {
 	return {
+		playlists: state.playlist.playlists,
 	};
 };
 

@@ -21,6 +21,10 @@ const styles = StyleSheet.create({
 		fontSize: 30,
 		color: '#000',
 	},
+	iconPlaylist: {
+		fontSize: 30,
+		color: '#000',
+	},
 	description: {
 		paddingLeft: 30,
 		textAlign: 'left',
@@ -116,7 +120,8 @@ const styles = StyleSheet.create({
 	cardBottom: {
 		height: '20%',
 		flexDirection: 'row',
-		justifyContent: 'center',
+		justifyContent: 'space-between',
+		paddingLeft: 10,
 		alignItems: 'center',
 	},
 	cardText: {

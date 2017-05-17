@@ -31,7 +31,7 @@ class CreatePlaylist extends Component {
 			<Modal
 				transparent={true}
 				visible={this.props.visible}
-				animationType='slide'
+				animationType='fade'
 				onRequestClose={() => this.props.setModal(false)}
 			>
 				<View
@@ -55,7 +55,7 @@ class CreatePlaylist extends Component {
 							onSubmitEditing={() => this.handleSubmission()}
 							placeholder={'Search for some music.'}
 							selectionColor='#ff6666'
-							//autoFocus={true}
+							autoFocus={true}
 							autoCorrect={false}
 							autoCapitalize='none'
 						/>

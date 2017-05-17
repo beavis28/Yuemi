@@ -73,6 +73,12 @@ export const purgeDownloads = () => {
 	};
 };
 
+export const purgePlaylists = () => {
+	return {
+		type: 'PURGE_PLAYLISTS',
+	};
+};
+
 export const updateTime = (seconds) => {
 	return {
 		type: 'UPDATE_TIME',
@@ -168,5 +174,12 @@ export const addToPlaylist = (list, song) => {
 		type: 'ADD_TO_PLAYLIST',
 		list,
 		song
+	};
+};
+
+export const deletePlaylist = (name) => {
+	return {
+		type: 'DELETE_PLAYLIST',
+		name,
 	};
 };
