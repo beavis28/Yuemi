@@ -15,8 +15,6 @@ import Playlist from 'Yuemi/src/root/playlists/Playlist';
 import Header from 'Yuemi/src/root/header/Header';
 import Search from 'Yuemi/src/root/search/Search';
 import Settings from 'Yuemi/src/root/settings/Settings';
-import PlayerInfo from 'Yuemi/src/root/player/PlayerInfo';
-import PlayerControl from 'Yuemi/src/root/player/PlayerControl';
 
 export const Tabs = TabNavigator({
 	MyMusic: {
@@ -58,22 +56,6 @@ export const Tabs = TabNavigator({
 			backgroundColor: '#ff6666',
 		},
 	},
-});
-
-export const PlayerNav = TabNavigator({
-	PlayerInfo: {
-		screen: PlayerInfo,
-	},
-	PlayerControl: {
-		screen: PlayerControl,
-	},
-}, {
-	tabBarOptions: { // figure out how to do this without setting height to 0
-		style: {
-			height: 0,
-		},
-	},
-	swipeEnabled: true,
 });
 
 export const RootNav = StackNavigator({

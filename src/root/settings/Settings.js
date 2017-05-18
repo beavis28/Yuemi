@@ -54,19 +54,14 @@ class Settings extends Component {
 		const dir = RNFetchBlob.fs.dirs.DocumentDir;
 		RNFetchBlob.fs.ls(dir)
 		.then((files) => {
-			console.log('DOCUMENT_DIR_BEFORE:', files);
 			_.forEach(files, (value) => {
-				if(_.includes(this.props.downloaded, value)){
+				if(value.endsWith('mp3') || value.endsWith('jpg')){ // maybe check downloads instead
 					RNFetchBlob.fs.unlink(dir + '/' + value)
-					.then(() => {
-						console.log('DELETED:', dir + '/' + value);
-					})
 					.catch((err) => {
 						console.log('ERR: ', err);
 					});
 				}
 			});
-			console.log(files);
 			this.props.purgeDownloads();
 		});
 	}

@@ -1,28 +1,60 @@
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
-	rootNavContainer: {
-		flex: 7,
-	},
 	player: {
-		height: 85,
+		flex: 1,
 		backgroundColor: '#fafafa',
-		borderTopColor: '#000',
 		borderTopWidth: StyleSheet.hairlineWidth,
+		borderTopColor: '#aaa',
 		flexDirection: 'row',
 		justifyContent: 'center',
 		alignItems: 'center',
 	},
-	playerContainer: {
-		width: '90%',
+	playerTop: {
+		height: '10%',
+		width: '100%',
+		position: 'absolute',
+		top: 0,
+		backgroundColor: '#fafafa',
 		flexDirection: 'row',
 		justifyContent: 'flex-start',
 		alignItems: 'center',
 	},
-	navIconContainer: {
-		width: '10%',
+	playerBottom: {
+		height: '10%',
+		width: '100%',
+		position: 'absolute',
+		bottom: 0,
+		backgroundColor: '#fafafa',
 		flexDirection: 'row',
-		justifyContent: 'center',
+		justifyContent: 'space-between',
+		alignItems: 'center',
+	},
+	iconContainer: {
+		width: '50%',
+		flexDirection: 'row',
+		justifyContent: 'space-around',
+		alignItems: 'center',
+	},
+	playerFull: {
+		flex: 1,
+	},
+	playerFullImage: {
+		width: '100%',
+		height: '100%',
+	},
+	slider: {
+		width: '110%',
+		alignSelf: 'center',
+		position: 'absolute',
+		top: '88.7%',
+	},
+	bottomPlayerContainer: {
+		width: '100%',
+		height: '100%',
+		flex: 1,
+		flexDirection: 'row',
+		justifyContent: 'flex-start',
 		alignItems: 'center',
 	},
 	playingTextContainer: {
@@ -39,6 +71,7 @@ const styles = StyleSheet.create({
 	playPauseIcon: {
 		width: 30,
 		height: 30,
+		marginRight: 55,
 	},
 	listContainer: {
 		padding: 12,
@@ -48,54 +81,14 @@ const styles = StyleSheet.create({
 		justifyContent: 'space-between',
 		width: 150,
 	},
-	playerDefaultImage: {
-		width: 50,
-		height: 50,
-		marginLeft: 15,
-		textAlign: 'center',
-		textAlignVertical: 'center',
+	seconds: {
+		fontSize: 15,
 	},
-	playerImage: {
-		width: 50,
-		height: 50,
-		marginLeft: 15,
-	},
-	controlContent: {
-		flexDirection: 'column',
-		justifyContent: 'space-between',
-		alignItems: 'center',
-	},
-	track: {
-		height: 10,
-		borderRadius: 4,
-		backgroundColor: '#ff6666',
-	},
-	thumb: {
-		top: 27,
-		width: 20,
-		height: 20,
-		backgroundColor: '#e60000',
-		borderColor: '#e60000',
-		borderWidth: 5,
-		borderRadius: 10,
-	},
-	iconContainer: {
+	secondsContainer: {
+		width: '25%',
 		flexDirection: 'row',
 		justifyContent: 'center',
 		alignItems: 'center',
-	},
-	sliderContainer: {
-		flexDirection: 'row',
-		justifyContent: 'center',
-		alignItems: 'center',
-		width: '85%',
-	},
-	playerSubcontainer: {
-		flexDirection: 'row',
-		justifyContent: 'center',
-		alignItems: 'center',
-		width: '100%',
-		height: '100%',
 	},
 });
 

@@ -28,7 +28,6 @@ class Row extends Component {
 			current, updatePaused, setPlaying,
 			unsetPlaying, updateTime, id, downloaded
 		} = this.props;
-		console.log(this.props);
 		let playlist = this.props.playlist;
 		let index = this._getPlaylistIndex(playlist, id);
 		let bundle = {
@@ -170,7 +169,6 @@ class Row extends Component {
 	}
 
 	render(){
-		console.log('RERENDERING');
 		if(this.props.activeMenuId == this.props.id){
 			return this.renderMenu();
 		} else {

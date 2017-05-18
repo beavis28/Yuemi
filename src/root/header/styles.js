@@ -9,8 +9,8 @@ const styles = StyleSheet.create({
 		backgroundColor: '#f5f5f5',
 	},
 	mainHeaderContainer: {
-		backgroundColor: '#ff6666', // #ff6666
-		height: 50,
+		height: 44,
+		backgroundColor: '#ff6666',
 	},
 	header: {
 		flex: 1,

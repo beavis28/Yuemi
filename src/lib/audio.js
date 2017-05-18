@@ -26,10 +26,13 @@ class Audio {
 		}
 		let soundObj = new Sound('/' + id + '.mp3', RNFetchBlob.fs.dirs.DocumentDir, (error) => {
 			if (error) {
-				this.endMusic(this.unsetPlaying, soundObj);
+				console.log(id);
+				console.log('ERROR: ', error);
+				this.unsetPlaying();
 			} else {
+				console.log(id);
 				let duration = soundObj.getDuration();
-				const next = {id, soundObj, duration};
+				const next = {id, duration};
 				this.setPlaying(next);
 				this.soundObj = soundObj;
 				this.playMusic();
@@ -108,6 +111,13 @@ class Audio {
 			arr[j] = temp;
 		}
 		return arr;	
+	}
+
+	static parseSeconds(seconds) {
+		seconds = Number(seconds);
+		var m = Math.floor(seconds % 3600 / 60);
+		var s = Math.floor(seconds % 3600 % 60);
+		return `00${m}`.slice(-2) + ':' + `00${s}`.slice(-2);
 	}
 
 }

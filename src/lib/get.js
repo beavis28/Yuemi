@@ -23,7 +23,7 @@ export function getDownload(id, title, user, duration){
 				.then((res) => {
 					console.log(res);
 				});
-		});
+		})
 }
 
 export function getImage(id){
@@ -43,19 +43,25 @@ export function requestFile(id){
 	return fetch('http://104.236.165.165/api/request_file/' + id)
 		.then((res) => {
 			console.log(res);
-		});
+		})
 }
 
 export function getVideos(text){
 	return fetch('http://104.236.165.165/api/search/' + text.split(' ').join('+'))
 		.then((response) => response.json())
-		.then((json) => json.videos);
+		.then((json) => json.videos)
+		.catch((err) => {
+			console.log('GET_VIDEOS_ERR:', err);
+		});
 }
 
 export function getFeed(){
 	return fetch('http://104.236.165.165/api/downloads')
 		.then((response) => response.json())
-		.then((json) => (json));
+		.then((json) => (json))
+		.catch((err) => {
+			console.log('GET_FEED_ERR', err);
+		});
 }
 
 export function createUser(username){
@@ -68,5 +74,8 @@ export function createUser(username){
 		body: JSON.stringify({
 			username
 		})
-	});
+	})
+		.catch((err) => {
+			console.log('CREATE_USER_ERR:', err);
+		});
 }

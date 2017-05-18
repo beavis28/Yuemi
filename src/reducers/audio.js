@@ -4,7 +4,6 @@ const getInitialState = () => {
 	return {
 		audio: null,
 		id: '',
-		artist: '',
 		duration: 0,
 		seconds: 0,
 		paused: false,
@@ -42,8 +41,8 @@ const audio = (state=getInitialState(), action) => {
 		newState = copyState(state);
 		newState.id = action.obj.id;
 		newState.duration = action.obj.duration;
-		newState.seconds = action.obj.seconds;
-		newState.paused = action.obj.paused;
+		newState.seconds = 0;
+		newState.paused = false;
 		return newState;
 	}
 
