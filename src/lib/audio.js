@@ -26,11 +26,8 @@ class Audio {
 		}
 		let soundObj = new Sound('/' + id + '.mp3', RNFetchBlob.fs.dirs.DocumentDir, (error) => {
 			if (error) {
-				console.log(id);
-				console.log('ERROR: ', error);
 				this.unsetPlaying();
 			} else {
-				console.log(id);
 				let duration = soundObj.getDuration();
 				const next = {id, duration};
 				this.setPlaying(next);

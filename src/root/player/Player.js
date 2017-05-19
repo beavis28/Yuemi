@@ -129,7 +129,6 @@ class Player extends Component {
 }
 
 const mapStateToProps = (state) => {
-	console.log(state.audio);
 	return {
 		current: state.audio,
 		duration: state.audio.duration,

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import RNFetchBlob from 'react-native-fetch-blob';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -17,7 +17,7 @@ import {
 import Audio from 'Yuemi/src/lib/audio';
 import styles from './styles';
 
-class Row extends Component {
+class Row extends PureComponent {
 
 	constructor(){
 		super();
@@ -36,8 +36,8 @@ class Row extends Component {
 			updateTime, updatePaused,
 			index
 		};
-		if(this.props.current.audio != null){
-			this.props.current.audio.endMusic();
+		if(this.props.audioObj != null){
+			this.props.audioObj.endMusic();
 		}
 		let audio = new Audio(bundle);
 		this.props.setAudio(audio);
@@ -57,8 +57,8 @@ class Row extends Component {
 	}
 
 	_unlinkFile(){
-		if(this.props.current.audio != null){
-			this.props.current.audio.endMusic();
+		if(this.props.audioObj != null){
+			this.props.audioObj.endMusic();
 		}
 		const path = RNFetchBlob.fs.dirs.DocumentDir + '/' + this.props.id;
 		RNFetchBlob.fs.unlink(path + '.mp3')
@@ -129,24 +129,32 @@ class Row extends Component {
 						name='cancel'
 						size={40}
 						color='#fff'
-						onPress={() => this.props.setActiveMenu('')}
+						onPress={this._handlePressCancel.bind(this)}
 					/>
 				</View>
 			</View>
 		);
 	}
 
+	_handlePressCancel(){
+		this.props.setActiveMenu('');
+	}
+
+	_handlePressMore(){
+		this.props.setActiveMenu(this.props.id);
+	}
+
 	renderContent(){
 		return (
 			<View style={styles.listRow}>
 				{this.renderImage()}
-				<Text style={this.props.current.title == this.props.title ? styles.listText : styles.listTextPlaying} numberOfLines={2}>
+				<Text style={this.props.currentTitle == this.props.title ? styles.listText : styles.listTextPlaying} numberOfLines={2}>
 					{this.props.title}
 				</Text>
 				<Icon 
 					name='more-vert'
 					size={30} color='#000'
-					onPress={() => this.props.setActiveMenu(this.props.id)}
+					onPress={this._handlePressMore.bind(this)}
 				/>
 			</View>
 		);
@@ -167,8 +175,17 @@ class Row extends Component {
 			);
 		}
 	}
+	
+	shouldComponentUpdate(nextProps){
+		if(this.props.id != this.props.activeMenuId && this.props.id != nextProps.activeMenuId){
+			return false;
+		} else {
+			return true;
+		}
+	}
 
 	render(){
+		console.log('RENDERING');
 		if(this.props.activeMenuId == this.props.id){
 			return this.renderMenu();
 		} else {
@@ -179,12 +196,11 @@ class Row extends Component {
 
 const mapStateToProps = (state, ownProps) => {
 	return {
-		paused: state.audio.paused,
-		current: state.audio,
-		id: ownProps.id,
+		audioObj: state.audio.audio,
+		currentTitle: state.audio.title,
+		activeMenuId: state.me.activeMenuId,
 		downloaded: state.downloaded.downloaded,
 		title: state.downloaded.downloaded[ownProps.id].title,
-		activeMenuId: state.me.activeMenuId,
 	};
 };
 
