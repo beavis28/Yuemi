@@ -76,23 +76,38 @@ class PlayerFull extends Component {
 					animationType='slide'
 				>
 					<View style={styles.playerFull}>
-						<Image
-							source={{uri: 'file:///' + RNFetchBlob.fs.dirs.DocumentDir + '/' + this.props.current.id + '.jpg'}}
-							resizeMode='cover'
-							style={styles.playerFullImage}
-						/>
-						<View style={styles.playerTop}>
+						<View style={styles.chevronContainer}>
 							<Icon
-								name='chevron-left'
+								name='keyboard-arrow-down'
 								size={40}
 								color='#ff6666'
 								onPress={() => this.props.setModal(false)}
 							/>
-							<Text style={{textAlign: 'left', width: '90%'}} numberOfLines={2}>
+						</View>
+						<View style={styles.imageContainer} elevation={5}>
+							<Image
+								source={{uri: 'file:///' + RNFetchBlob.fs.dirs.DocumentDir + '/' + this.props.current.id + '.jpg'}}
+								resizeMode='cover'
+								style={styles.playerFullImage}
+							/>
+						</View>
+						<View style={styles.textContainer}>
+							<Text style={{textAlign: 'center', width: '90%'}} numberOfLines={2}>
 								{this.props.downloaded[this.props.current.id].title}
 							</Text>
 						</View>
-						<View style={styles.playerBottom}>
+						<View style={styles.sliderContainer}>
+							<Slider
+								style={styles.slider}
+								minimumTrackTintColor='#e60000'
+								maximumTrackTintColor='#ff6666'
+								thumbTintColor='#e60000'
+								maximumValue={this.props.current.duration}
+								value={this.props.seconds}
+								onValueChange={(value) => this._setTime(value)}
+							/>
+						</View>
+						<View style={styles.controlsContainer}>
 							<View style={styles.secondsContainer}>
 								<Text style={styles.seconds}>
 									{Audio.parseSeconds(this.props.seconds)}
@@ -117,15 +132,6 @@ class PlayerFull extends Component {
 								</Text>
 							</View>
 						</View>
-						<Slider
-							style={styles.slider}
-							minimumTrackTintColor='#e60000'
-							maximumTrackTintColor='#ff6666'
-							thumbTintColor='#e60000'
-							maximumValue={this.props.current.duration}
-							value={this.props.seconds}
-							onValueChange={(value) => this._setTime(value)}
-						/>
 					</View>
 				</Modal>
 			);

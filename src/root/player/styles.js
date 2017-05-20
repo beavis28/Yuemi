@@ -10,45 +10,6 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 		alignItems: 'center',
 	},
-	playerTop: {
-		height: '10%',
-		width: '100%',
-		position: 'absolute',
-		top: 0,
-		backgroundColor: '#fafafa',
-		flexDirection: 'row',
-		justifyContent: 'flex-start',
-		alignItems: 'center',
-	},
-	playerBottom: {
-		height: '10%',
-		width: '100%',
-		position: 'absolute',
-		bottom: 0,
-		backgroundColor: '#fafafa',
-		flexDirection: 'row',
-		justifyContent: 'space-between',
-		alignItems: 'center',
-	},
-	iconContainer: {
-		width: '50%',
-		flexDirection: 'row',
-		justifyContent: 'space-around',
-		alignItems: 'center',
-	},
-	playerFull: {
-		flex: 1,
-	},
-	playerFullImage: {
-		width: '100%',
-		height: '100%',
-	},
-	slider: {
-		width: '110%',
-		alignSelf: 'center',
-		position: 'absolute',
-		top: '88.7%',
-	},
 	bottomPlayerContainer: {
 		width: '100%',
 		height: '100%',
@@ -89,6 +50,66 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'center',
 		alignItems: 'center',
+	},
+	
+	// FULL PLAYER STYLES
+	playerFull: {
+		flex: 1,
+	},
+	chevronContainer: {
+		flex: 1,
+		flexDirection: 'row',
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
+	imageContainer: {
+		flex: 6,
+		width: '80%',
+		flexDirection: 'row',
+		justifyContent: 'center',
+		alignItems: 'center',
+		backgroundColor: '#fafafa',
+		alignSelf: 'center',
+
+		// IOS
+		shadowColor: '#000',
+		shadowOpacity: 0.5,
+		shadowOffset: {
+			height: 10,
+			width: 10,
+		},
+		shadowRadius: 20,
+	},
+	textContainer: {
+		flex: 2,
+		flexDirection: 'row',
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
+	sliderContainer: {
+		flex: 1,
+		flexDirection: 'row',
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
+	controlsContainer: {
+		flex: 2,
+		flexDirection: 'row',
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
+	iconContainer: {
+		width: '50%',
+		flexDirection: 'row',
+		justifyContent: 'space-around',
+		alignItems: 'center',
+	},
+	playerFullImage: {
+		width: '100%',
+		height: '100%',
+	},
+	slider: {
+		width: '90%',
 	},
 });
 

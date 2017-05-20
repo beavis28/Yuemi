@@ -96,11 +96,7 @@ class Row extends PureComponent {
 		return(
 			<Image
 				source={{uri: 'file:///' + RNFetchBlob.fs.dirs.DocumentDir + '/' + this.props.id + '.jpg'}}
-				style={{
-					width: 50,
-					height: 50,
-					marginLeft: 15,
-				}}
+				style={styles.songImage}
 			/>
 		);
 	}
@@ -147,15 +143,22 @@ class Row extends PureComponent {
 	renderContent(){
 		return (
 			<View style={styles.listRow}>
-				{this.renderImage()}
-				<Text style={this.props.currentTitle == this.props.title ? styles.listText : styles.listTextPlaying} numberOfLines={2}>
-					{this.props.title}
-				</Text>
-				<Icon 
-					name='more-vert'
-					size={30} color='#000'
-					onPress={this._handlePressMore.bind(this)}
-				/>
+				<View style={styles.imageContainer}>
+					{this.renderImage()}
+				</View>
+				<View style={styles.textContainer}>
+					<Text style={this.props.currentId == this.props.id ? styles.listTextPlaying : styles.listText} numberOfLines={2}>
+						{this.props.title}
+					</Text>
+				</View>
+				<View style={styles.moreContainer}>
+					<Icon 
+						name='more-vert'
+						size={30}
+						color='#000'
+						onPress={this._handlePressMore.bind(this)}
+					/>
+				</View>
 			</View>
 		);
 	}
@@ -177,10 +180,12 @@ class Row extends PureComponent {
 	}
 	
 	shouldComponentUpdate(nextProps){
-		if(this.props.id != this.props.activeMenuId && this.props.id != nextProps.activeMenuId){
-			return false;
-		} else {
+		if(this.props.id == this.props.activeMenuId || this.props.id == nextProps.activeMenuId){
 			return true;
+		} else if(this.props.id == this.props.currentId || this.props.id == nextProps.currentId){
+			return true;
+		} else {
+			return false;
 		}
 	}
 
@@ -197,7 +202,7 @@ class Row extends PureComponent {
 const mapStateToProps = (state, ownProps) => {
 	return {
 		audioObj: state.audio.audio,
-		currentTitle: state.audio.title,
+		currentId: state.audio.id,
 		activeMenuId: state.me.activeMenuId,
 		downloaded: state.downloaded.downloaded,
 		title: state.downloaded.downloaded[ownProps.id].title,
