@@ -26,12 +26,12 @@ class Row extends Component {
 			this.props.setActiveDownload(id);
 			requestFile(id)
 		.then(() => {
-			return getDownload(id, title, this.props.user, duration)
+			return getDownload(id, title, this.props.user, duration);
 		})
 		.then(() => {
 			this.props.addToDownloaded(id, {title, duration});
 			this.props.setActiveDownload(null);
-			getImage(id)
+			getImage(id);
 			if(this.props.downloadQueue.length > 0){
 				const next = this.props.downloadQueue[0];
 				this.props.shiftDownloadQueue();

@@ -32,6 +32,16 @@ class Feed extends Component {
 			});
 	}
 
+	renderSeparator(){
+		return (
+			<View style={{
+				height: 1,
+				backgroundColor: '#fff',
+				width: '100%',
+			}}/>
+		);
+	}
+
 	render() {
 		return (
 			<View style={styles.mainContainer}>
@@ -42,7 +52,7 @@ class Feed extends Component {
 					renderItem={({item}) => <Row data={item}/>}
 					onRefresh={this._onRefresh.bind(this)}
 					refreshing={false}
-
+					ItemSeparatorComponent={this.renderSeparator}
 				/>
 			</View>
 		);

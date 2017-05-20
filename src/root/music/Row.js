@@ -147,8 +147,11 @@ class Row extends PureComponent {
 					{this.renderImage()}
 				</View>
 				<View style={styles.textContainer}>
-					<Text style={this.props.currentId == this.props.id ? styles.listTextPlaying : styles.listText} numberOfLines={2}>
+					<Text style={this.props.currentId == this.props.id ? styles.listTextPlaying : styles.listText} numberOfLines={1}>
 						{this.props.title}
+					</Text>
+					<Text style={this.props.currentId == this.props.id ? styles.listTextPlaying : styles.listText} numberOfLines={1}>
+						{'Artist Name - ' + this.props.downloaded[this.props.id].duration}
 					</Text>
 				</View>
 				<View style={styles.moreContainer}>
@@ -190,7 +193,7 @@ class Row extends PureComponent {
 	}
 
 	render(){
-		console.log('RENDERING');
+		console.log('MUSIC_ROW_RENDERING');
 		if(this.props.activeMenuId == this.props.id){
 			return this.renderMenu();
 		} else {

@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
 		flexDirection: 'column',
 		justifyContent: 'center',
 		alignItems: 'center',
-		backgroundColor: '#f5f5f5',
+		backgroundColor: '#ff6666', //f5f5f5
 	},
 	// Feed List
 	list: {
@@ -20,19 +20,17 @@ const styles = StyleSheet.create({
 		flexDirection: 'column',
 		justifyContent: 'center',
 		alignItems: 'center',
-		paddingLeft: 25,
-		paddingRight: 25,
 	},
 	userText: {
 		fontSize: 15,
-		color: '#555555',
+		color: '#fff',
 		textAlign: 'center',
 		fontWeight: 'bold',
 	},
 	listRowText: {
-		fontSize: 18,
+		fontSize: 20,
 		textAlign: 'center',
-		color: '#737373',
+		color: '#fff',
 	},
 });
 export default styles;

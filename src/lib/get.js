@@ -23,7 +23,7 @@ export function getDownload(id, title, user, duration){
 				.then((res) => {
 					console.log(res);
 				});
-		})
+		});
 }
 
 export function getImage(id){
@@ -43,7 +43,7 @@ export function requestFile(id){
 	return fetch('http://104.236.165.165/api/request_file/' + id)
 		.then((res) => {
 			console.log(res);
-		})
+		});
 }
 
 export function getVideos(text){

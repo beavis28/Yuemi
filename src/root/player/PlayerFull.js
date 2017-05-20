@@ -49,7 +49,7 @@ class PlayerFull extends Component {
 			return (
 				<Icon
 					name='play-circle-filled'
-					size={50}
+					size={75}
 					color='#ff6666'
 					onPress={this._musicInterface.bind(this)}
 				/>
@@ -58,7 +58,7 @@ class PlayerFull extends Component {
 			return (
 				<Icon
 					name='pause-circle-filled'
-					size={50}
+					size={75}
 					color='#ff6666'
 					onPress={this._musicInterface.bind(this)}
 				/>
@@ -107,12 +107,19 @@ class PlayerFull extends Component {
 								onValueChange={(value) => this._setTime(value)}
 							/>
 						</View>
-						<View style={styles.controlsContainer}>
+						<View style={styles.timeContainer}>
 							<View style={styles.secondsContainer}>
 								<Text style={styles.seconds}>
 									{Audio.parseSeconds(this.props.seconds)}
 								</Text>
 							</View>
+							<View style={styles.secondsContainer}>
+								<Text style={styles.seconds}>
+									{Audio.parseSeconds(this.props.duration)}
+								</Text>
+							</View>
+						</View>
+						<View style={styles.controlsContainer}>
 							<View style={styles.iconContainer}>
 								<Icon
 									name='skip-previous' size={30}
@@ -125,11 +132,6 @@ class PlayerFull extends Component {
 									color='#000'
 									onPress={this._skipNext.bind(this)}
 								/>
-							</View>
-							<View style={styles.secondsContainer}>
-								<Text style={styles.seconds}>
-									{Audio.parseSeconds(this.props.duration)}
-								</Text>
 							</View>
 						</View>
 					</View>

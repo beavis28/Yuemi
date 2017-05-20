@@ -24,6 +24,7 @@ class CreatePlaylist extends Component {
 	handleSubmission(){
 		this.props.setModal(false);
 		this.props.addPlaylist(this.state.text);
+		this.setState({text: ''});
 	}
 
 	render(){
@@ -69,7 +70,7 @@ class CreatePlaylist extends Component {
 							</TouchableWithoutFeedback>
 							<TouchableWithoutFeedback
 								onPress={() => this.handleSubmission()}
-								>
+							>
 								<View style={{paddingLeft: 10}}>
 									<Text style={styles.button}>CREATE</Text>
 								</View>

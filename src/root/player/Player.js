@@ -17,7 +17,7 @@ class Player extends Component {
 		super();
 		this.state = {
 			modalVisible: false
-		}
+		};
 	}
 
 	_musicInterface(){

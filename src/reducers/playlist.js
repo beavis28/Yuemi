@@ -56,7 +56,7 @@ const login = (state=getInitialState(), action) => {
 			_.remove(cur, (id) => {
 				console.log(action.id, id, action.id == id);
 				return action.id == id;
-			})
+			});
 		});
 		return newState;
 	}

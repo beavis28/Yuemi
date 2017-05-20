@@ -2,7 +2,7 @@ import { debug } from 'Yuemi/src/config';
 
 const getInitialState = () => {
 	return {
-		downloaded: {}, // object of { id, title, duration }
+		downloaded: {}, // id: { title, duration }
 	};
 };
 

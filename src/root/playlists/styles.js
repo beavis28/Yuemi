@@ -80,40 +80,49 @@ const styles = StyleSheet.create({
 	playlistsContainer: {
 		height: '100%',
 		backgroundColor: '#f5f5f5',
+		marginLeft: 5,
+		marginRight: 5,
 	},
 	playlistContainer: {
-		height: 250,
+		height: 200,
+		width: '50%',
 		justifyContent: 'center',
 		alignItems: 'center',
 		backgroundColor: '#f5f5f5',
 	},
 	playlistCard: {
 		backgroundColor: '#f5f5f5',
-		width: '70%',
-		height: 200,
+		width: '95%',
+		height: '95%',
+		shadowColor: '#000',
+		shadowOpacity: 0.5,
+		shadowOffset: {
+			height: 0.1,
+			width: 0.1,
+		},
+		shadowRadius: 1.5,
 	},
 	cardTop: {
 		height: '80%',
-		backgroundColor: '#aaa',
 	},
 	cardQuadrent: {
 		position: 'absolute',
 		height: '50%',
 		width: '50%',
 	},
-	cardTR: {
+	card0: {
 		top: 0,
 		right: 0,
 	},
-	cardTL: {
+	card1: {
 		top: 0,
 		left: 0,
 	},
-	cardBR: {
+	card2: {
 		bottom: 0,
 		right: 0,
 	},
-	cardBL: {
+	card3: {
 		bottom: 0,
 		left: 0,
 	},
@@ -131,6 +140,15 @@ const styles = StyleSheet.create({
 	cardImage: {
 		height: '100%',
 		width: '100%',
+	},
+	defaultImage: {
+		backgroundColor: '#ddd',
+		flexDirection: 'row',
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
+	playlistHeader: {
+		height: '100%',
 	},
 });
 export default styles;

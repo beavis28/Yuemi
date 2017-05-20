@@ -24,6 +24,7 @@ class Music extends Component {
 					data={this.props.playlist}
 					renderItem={({item}) => <Row id={item} playlist={this.props.playlist} navigation={this.props.navigation}/>}
 					keyExtractor={(item, index) => index}
+					ListHeaderComponent={this.props.header}
 				/>
 			</View>
 		);

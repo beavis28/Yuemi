@@ -97,13 +97,13 @@ export const RootNav = StackNavigator({
 	},
 	Playlist: {
 		screen: Playlist,
-		navigationOptions: {
-			title: 'PLAYLIST',
+		navigationOptions: ({ navigation }) => ({
 			headerTintColor: '#fff',
 			headerStyle: {
 				backgroundColor: '#ff6666',
 			},
-		},
+			title: navigation.state.params.playlist, // is laggy
+		}),
 	},
 });
 
