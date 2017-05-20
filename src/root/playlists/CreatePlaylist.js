@@ -23,8 +23,10 @@ class CreatePlaylist extends Component {
 
 	handleSubmission(){
 		this.props.setModal(false);
-		this.props.addPlaylist(this.state.text);
-		this.setState({text: ''});
+		if(!_.includes(_.keys(this.props.playlists), this.state.text)){
+			this.props.addPlaylist(this.state.text);
+			this.setState({text: ''});
+		}
 	}
 
 	render(){

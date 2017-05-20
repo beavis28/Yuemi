@@ -42,7 +42,7 @@ Trust me. 相信我。
 33. ~~pressing back button when on first song in playlist makes audio update on multiple ticks~~
 34. ~~Remove FROM playlist option~~
 35. OAuth2 with JWT's
-36. Shouldn't create playlists with same name
+36. ~~Shouldn't create playlists with same name~~
 37. Get rid of random rerenderings of the PLAYLIST list and MUSIC list (there are 2)
 38. Add in artist names and song info edit option
 39. Android modal slides down before exiting app
