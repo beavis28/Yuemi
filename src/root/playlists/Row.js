@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import _ from 'lodash';
 import {
 	View, Text, ActivityIndicator, Platform,
@@ -9,7 +9,7 @@ import {
 
 import styles from './styles';
 import {
-	addToPlaylist,
+	addToPlaylist, removeFromPlaylist,
 } from 'Yuemi/src/action';
 
 class Row extends Component {
@@ -17,8 +17,24 @@ class Row extends Component {
 		super();
 	}
 
+	onPlaylistPress(){
+		if(this.songIsIn()){
+			this.removeSong();
+		} else {
+			this.addSong();
+		}
+	}
+
 	addSong(){
-		this.props.addToPlaylist(this.props.title, this.props.song);
+		this.props.addToPlaylist(this.props.playlistName, this.props.song);
+	}
+
+	removeSong(){
+		this.props.removeFromPlaylist(this.props.playlistName, this.props.song);
+	}
+
+	songIsIn(){
+		return _.includes(this.props.playlists[this.props.playlistName], this.props.song);
 	}
 
 	getContent(){
@@ -26,10 +42,10 @@ class Row extends Component {
 			<View style={styles.playlist}>
 				<Icon
 					style={styles.icon}
-					name='playlist-add'
+					name={this.songIsIn() ? 'playlist-minus' : 'playlist-plus'}
 				/>
 				<Text style={styles.description}>
-					{this.props.title}
+					{this.props.playlistName}
 				</Text>
 			</View>
 		);
@@ -38,13 +54,13 @@ class Row extends Component {
 	getPlaylist(){
 		if(Platform.OS == 'ios'){
 			return(
-				<TouchableHighlight onPress={() => this.addSong()} underlayColor='#ddd'>
+				<TouchableHighlight onPress={() => this.onPlaylistPress()} underlayColor='#ddd'>
 					{this.getContent()}
 				</TouchableHighlight>
 			);
 		} else {
 			return(
-				<TouchableNativeFeedback onPress={() => this.addSong()}>
+				<TouchableNativeFeedback onPress={() => this.onPlaylistPress()}>
 					{this.getContent()}
 				</TouchableNativeFeedback>
 			);
@@ -52,23 +68,11 @@ class Row extends Component {
 	}
 
 	render(){
-		if(_.includes(this.props.playlists[this.props.title], this.props.song)){
-			return (
-				<View style={styles.container}>
-					<View style={styles.playlist}>
-						<Text style={styles.description}>
-							{this.props.title}
-						</Text>
-					</View>
-				</View>
-			);
-		} else {
-			return (
-				<View style={styles.container}>
-					{this.getPlaylist()}
-				</View>
-			);
-		}
+		return (
+			<View style={styles.container}>
+				{this.getPlaylist()}
+			</View>
+		);
 	}
 }
 
@@ -82,6 +86,9 @@ const mapDispatchToProps = (dispatch) => {
 	return {
 		addToPlaylist: (list, song) => {
 			dispatch(addToPlaylist(list, song));
+		},
+		removeFromPlaylist: (list, song) => {
+			dispatch(removeFromPlaylist(list, song));
 		},
 	};
 };

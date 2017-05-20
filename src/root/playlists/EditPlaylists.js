@@ -56,7 +56,7 @@ class EditPlaylists extends Component {
 				{this.getCreate()}
 				<FlatList
 					data={_.keys(this.props.playlists)}
-					renderItem={({item}) => <Row title={item} navigation={this.props.navigation} song={this.props.navigation.state.params.song}/>}
+					renderItem={({item}) => <Row playlistName={item} navigation={this.props.navigation} song={this.props.navigation.state.params.song}/>}
 					keyExtractor={(item, index) => index}
 				/>
 			</View>

@@ -40,7 +40,7 @@ Trust me. 相信我。
 31. Add animations to everything (specifically Music row options)
 32. ~~Fix skip buttons on bottom player (iphone player gets messed up)~~
 33. pressing back button when on first song in playlist makes audio update on multiple ticks
-34. Remove FROM playlist option
+34. ~~Remove FROM playlist option~~
 35. OAuth2 with JWT's
 36. Shouldn't create playlists with same name
 37. Get rid of random rerenderings of the PLAYLIST list and MUSIC list (there are 2)

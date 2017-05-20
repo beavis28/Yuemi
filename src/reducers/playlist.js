@@ -41,6 +41,14 @@ const login = (state=getInitialState(), action) => {
 		return newState;
 	}
 
+	case 'REMOVE_FROM_PLAYLIST': {
+		newState = copyState(state);
+		if(_.includes(newState.playlists[action.list], action.song)){
+			_.remove(newState.playlists[action.list], (song) => song == action.song);
+		}
+		return newState;
+	}
+
 	case 'PURGE_PLAYLISTS': {
 		newState = copyState(state);
 		newState.playlists = {};

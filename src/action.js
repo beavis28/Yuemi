@@ -177,6 +177,14 @@ export const addToPlaylist = (list, song) => {
 	};
 };
 
+export const removeFromPlaylist = (list, song) => {
+	return {
+		type: 'REMOVE_FROM_PLAYLIST',
+		list,
+		song
+	};
+};
+
 export const deletePlaylist = (name) => {
 	return {
 		type: 'DELETE_PLAYLIST',
