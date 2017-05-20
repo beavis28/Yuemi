@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput } from 'react-native';
+import { View, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { connect } from 'react-redux';
 
@@ -22,18 +22,18 @@ class Header extends Component {
 		if(!this.props.searchBarActive){
 			return(
 				<View style={styles.header}>
-					<View style={styles.leftContainer}>
-						<Icon name="settings" size={30} color="#fff" onPress={() => this.props.navigation.navigate('Settings')}/>
-						<Text style={styles.headerText}>
-							Yuemi
-						</Text>
-					</View>
+					<Icon name="settings" size={30} color="#fff" onPress={() => this.props.navigation.navigate('Settings')}/>
+					<Text style={styles.headerText}>
+						Yuemi
+					</Text>
 					<Icon name="search" size={30} color="#fff" onPress={() => this.props.setSearchBar(true)} />
 				</View>
 			);
 		} else {
 			return (
-				<SearchBar navigation={this.props.navigation} />
+				<View style={styles.searchBarContainer}>
+					<SearchBar navigation={this.props.navigation} />
+				</View>
 			);
 		}
 	}

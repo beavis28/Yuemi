@@ -1,42 +1,38 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 
 const styles = StyleSheet.create({
-	mainContainer: {
-		flex: 1,
-		flexDirection: 'column',
-		justifyContent: 'center',
-		alignItems: 'center',
-		backgroundColor: '#f5f5f5',
-	},
 	mainHeaderContainer: {
-		height: 44,
+		height: 60,
 		backgroundColor: '#ff6666',
 	},
 	header: {
+		height: '100%',
+		width: '100%',
 		flex: 1,
 		flexDirection: 'row',
 		justifyContent: 'space-between',
-		alignItems: 'center',
-		paddingLeft: 15,
-		paddingRight: 15,
-	},
-	leftContainer: {
-		flexDirection: 'row',
-		justifyContent: 'flex-start',
-		alignItems: 'center',
+		alignItems: 'flex-end',
+		paddingBottom: 10,
 	},
 	headerText: {
-		paddingLeft: 20,
-		fontWeight: 'bold',
 		color: '#fff',
-		fontSize: 20,
+		fontSize: 25,
+	},
+	searchBarContainer: {
+		flex: 1,
+		flexDirection: 'row',
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
+	searchBarSubcontainer: {
+		width: '70%',
+	},
+	textInput: {
+		height: 40,
+		color: '#fff',
 	},
 	list: {
 		width: '100%',
-	},
-	textInput: {
-		color: '#fff',
-		height: 60,
 	},
 });
 export default styles;

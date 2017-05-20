@@ -55,6 +55,7 @@ class Player extends Component {
 	}
 
 	getToRender(){
+		const download = this.props.downloaded[this.props.current.id];
 		if(this.props.current.id != ''){
 			return (
 				<TouchableHighlight
@@ -73,10 +74,10 @@ class Player extends Component {
 						/>
 						<View style={styles.playingTextContainer}>
 							<Text style={styles.playingText} numberOfLines={1}>
-								{this.props.downloaded[this.props.current.id].title}
+								{download.title}
 							</Text>
-							<Text style={styles.playingText}>
-								{Audio.parseSeconds(this.props.seconds) + ' / ' + Audio.parseSeconds(this.props.duration)}
+							<Text style={styles.playingTextArtist} numberOfLines={1}>
+								{download.artist}
 							</Text>
 						</View>
 						{this.getButton()}
@@ -100,9 +101,6 @@ class Player extends Component {
 					<View style={styles.playingTextContainer}>
 						<Text style={styles.playingText} numberOfLines={1}>
 							Pick a song.
-						</Text>
-						<Text style={styles.playingText}>
-								{Audio.parseSeconds(this.props.seconds) + ' / ' + Audio.parseSeconds(this.props.duration)}
 						</Text>
 					</View>
 					<Icon

@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import _ from 'lodash';
 
 import styles from './styles';
-import { requestFile, getDownload, getImage } from 'Yuemi/src/lib/get';
+import { handleDownload, requestFile, getDownload, getImage } from 'Yuemi/src/lib/get';
 import {
 	addDownloadToQueue, setActiveDownload,
 	shiftDownloadQueue, addToDownloaded
@@ -16,33 +16,20 @@ class Row extends Component {
 		super();
 	}
 
-	handleDownload(id, title, duration){
-		if(this.props.downloadQueue.includes({ id, title, duration })){
-			return;
-		}
-		if(this.props.activeDownload != null){
-			this.props.addDownloadToQueue({id, title, duration});
-		} else {
-			this.props.setActiveDownload(id);
-			requestFile(id)
-		.then(() => {
-			return getDownload(id, title, this.props.user, duration);
-		})
-		.then(() => {
-			this.props.addToDownloaded(id, {title, duration});
-			this.props.setActiveDownload(null);
-			getImage(id);
-			if(this.props.downloadQueue.length > 0){
-				const next = this.props.downloadQueue[0];
-				this.props.shiftDownloadQueue();
-				this.handleDownload(next.id, next.title, next.duration);
-			}
-		})
-		.catch((err) => {
-			console.log(err);
-			this.props.setActiveDownload(null);
-		});
-		}
+	downloadInterface(){
+		console.log('download interface called');
+		handleDownload(
+			this.props, this.props.id, this.props.title, this.props.duration,
+			this.getDownloadQueue.bind(this), this.getActiveDownload.bind(this)
+		);
+	}
+
+	getDownloadQueue(){
+		return this.props.downloadQueue;
+	}
+
+	getActiveDownload(){
+		return this.props.activeDownload;
 	}
 
 	renderDownloadButton(){
@@ -67,7 +54,7 @@ class Row extends Component {
 				<Icon 
 					name='file-download'
 					size={30} color='#1990B8'
-					onPress={() => this.handleDownload(this.props.id, this.props.title, this.props.duration)}
+					onPress={this.downloadInterface.bind(this)}
 				/>
 			);
 		}
@@ -96,7 +83,7 @@ class Row extends Component {
 					</View>
 				</View>
 			);
-		} else if(seconds > 500){
+		} else if(seconds > 3600){
 			return (
 				<View style={[styles.disabledListRow, {backgroundColor: '#ffaaaa'}]}>
 					<View style={styles.disabledListRowTextContainer}>
@@ -150,8 +137,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		addToDownloaded: (id, obj) => {
-			dispatch(addToDownloaded(id, obj));
+		addToDownloaded: (id, title, duration) => {
+			dispatch(addToDownloaded(id, title, duration));
 		},
 		setActiveDownload: (id) => {
 			dispatch(setActiveDownload(id));

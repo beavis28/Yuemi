@@ -50,6 +50,11 @@ class Row extends PureComponent {
 		return { repeat, shuffle };
 	}
 
+	_edit(){
+		this.props.setActiveMenu('');
+		this.props.editSong(this.props.id);
+	}
+
 	_getPlaylistIndex(list, id){
 		const index = _.indexOf(list, id);
 		if(index > -1){
@@ -129,6 +134,14 @@ class Row extends PureComponent {
 				</View>
 				<View style={styles.menuOption}>
 					<Icon 
+						name='edit'
+						size={40}
+						color='#fff'
+						onPress={this._edit.bind(this)}
+					/>
+				</View>
+				<View style={styles.menuOption}>
+					<Icon 
 						name='cancel'
 						size={40}
 						color='#fff'
@@ -148,6 +161,7 @@ class Row extends PureComponent {
 	}
 
 	renderContent(){
+		const download = this.props.downloaded[this.props.id];
 		return (
 			<View style={styles.listRow}>
 				<View style={styles.imageContainer}>
@@ -158,7 +172,7 @@ class Row extends PureComponent {
 						{this.props.title}
 					</Text>
 					<Text style={this.props.currentId == this.props.id ? styles.listTextPlaying : styles.listText} numberOfLines={1}>
-						{'Unknown Artist - ' + this.props.downloaded[this.props.id].duration}
+						{ download.artist + ' - ' + download.duration}
 					</Text>
 				</View>
 				<View style={styles.moreContainer}>
@@ -190,9 +204,12 @@ class Row extends PureComponent {
 	}
 	
 	shouldComponentUpdate(nextProps){
+		console.log(nextProps.title, nextProps.artist);
 		if(this.props.id == this.props.activeMenuId || this.props.id == nextProps.activeMenuId){
 			return true;
 		} else if(this.props.id == this.props.currentId || this.props.id == nextProps.currentId){
+			return true;
+		} else if(this.props.title != nextProps.title || this.props.artist != nextProps.artist){
 			return true;
 		} else {
 			return false;
@@ -218,6 +235,7 @@ const mapStateToProps = (state, ownProps) => {
 		activeMenuId: state.me.activeMenuId,
 		downloaded: state.downloaded.downloaded,
 		title: state.downloaded.downloaded[ownProps.id].title,
+		artist: state.downloaded.downloaded[ownProps.id].artist,
 	};
 };
 

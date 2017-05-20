@@ -1,10 +1,4 @@
-# Yuemi 乐迷
-
-You've never seen something so amazing. 你从未见过如此惊人的东西。
-
-Trust me. 相信我。
-
-## Issues:
+# Yuemi
 
 ## To do:
 1. ~~skip and back buttons~~
@@ -46,3 +40,5 @@ Trust me. 相信我。
 37. Get rid of random rerenderings of the PLAYLIST list and MUSIC list (there are 2)
 38. Add in artist names and song info edit option
 39. Android modal slides down before exiting app
+40. Pressed song, switched to playlists, opened playlist, turned on shuffle, hit next, multiple songs started playling
+41. When adding to playlists or deleting or something, row will display incorrect information

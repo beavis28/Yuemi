@@ -41,13 +41,10 @@ class SearchBar extends Component {
 
 	render(){
 		return(
-			<View style={{
-				backgroundColor: '#ff6666', // #ff6666
-				height: 50,
-			}}>
+			<View style={styles.searchBarSubcontainer}>
 				<TextInput
 					ref='search'
-					textAlign='left'
+					textAlign='center'
 					style={styles.textInput}
 					placeholderTextColor={'#fff'}
 					underlineColorAndroid={'#fff'}

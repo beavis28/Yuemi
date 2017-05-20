@@ -2,7 +2,7 @@ import { debug } from 'Yuemi/src/config';
 
 const getInitialState = () => {
 	return {
-		downloaded: {}, // id: { title, duration }
+		downloaded: {}, // id: { title, duration, artist }
 	};
 };
 
@@ -21,7 +21,21 @@ const download = (state=getInitialState(), action) => {
 
 	case 'ADD_TO_DOWNLOADED': {
 		newState = copyState(state);
-		newState.downloaded[action.id] = action.obj;
+
+		let d = action.title.split(' - ');
+		let duration = action.duration;
+		let artist;
+		let title;
+
+		if(d.length == 2){
+			artist = d[0].trim();
+			title = d[1].trim();
+		} else {
+			title = action.title.trim();
+			artist = "Unknown Artist";
+		}
+
+		newState.downloaded[action.id] = {title, duration, artist};
 		return newState;
 	}
 
@@ -33,6 +47,13 @@ const download = (state=getInitialState(), action) => {
 		newState = copyState(state);
 		delete newState.downloaded[action.id];
 		console.log(newState);
+		return newState;
+	}
+
+	case 'UPDATE_DOWNLOAD': {
+		newState = copyState(state);
+		newState.downloaded[action.id].title = action.title;
+		newState.downloaded[action.id].artist = action.artist;
 		return newState;
 	}
 

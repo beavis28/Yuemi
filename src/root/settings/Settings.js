@@ -63,6 +63,7 @@ class Settings extends Component {
 				}
 			});
 			this.props.purgeDownloads();
+			this.props.purgePlaylists();
 		});
 	}
 

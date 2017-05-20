@@ -69,6 +69,7 @@ class PlayerFull extends Component {
 
 
 	render(){
+		const download = this.props.downloaded[this.props.current.id];
 		if(this.props.current.id != ''){ // not good
 			return (
 				<Modal
@@ -93,8 +94,11 @@ class PlayerFull extends Component {
 							/>
 						</View>
 						<View style={styles.textContainer}>
-							<Text style={{textAlign: 'center', width: '90%'}} numberOfLines={2}>
-								{this.props.downloaded[this.props.current.id].title}
+							<Text style={styles.titleText} numberOfLines={2}>
+								{download.title}
+							</Text>
+							<Text style={styles.artistText} numberOfLines={1}>
+								{download.artist}
 							</Text>
 						</View>
 						<View style={styles.sliderContainer}>

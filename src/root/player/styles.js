@@ -25,8 +25,13 @@ const styles = StyleSheet.create({
 		paddingLeft: 25,
 	},
 	playingText: {
-		width: '75%',
-		fontSize: 20,
+		width: '85%',
+		fontSize: 17,
+		textAlign: 'left',
+	},
+	playingTextArtist: {
+		width: '85%',
+		fontSize: 14,
 		textAlign: 'left',
 	},
 	playPauseIcon: {
@@ -80,12 +85,6 @@ const styles = StyleSheet.create({
 		},
 		shadowRadius: 20,
 	},
-	textContainer: {
-		flex: 2,
-		flexDirection: 'row',
-		justifyContent: 'center',
-		alignItems: 'center',
-	},
 	sliderContainer: {
 		flex: 1,
 		flexDirection: 'row',
@@ -116,6 +115,22 @@ const styles = StyleSheet.create({
 	},
 	slider: {
 		width: '90%',
+	},
+	textContainer: {
+		flex: 2,
+		flexDirection: 'column',
+		justifyContent: 'flex-end',
+		alignItems: 'center',
+	},
+	titleText: {
+		textAlign: 'center',
+		width: '90%',
+		fontSize: 17,
+	},
+	artistText: {
+		textAlign: 'center',
+		width: '90%',
+		fontSize: 13,
 	},
 });
 

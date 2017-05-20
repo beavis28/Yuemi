@@ -1,6 +1,42 @@
 import RNFetchBlob from 'react-native-fetch-blob';
 
+// need to use classes
+export function handleDownload(bundle, id, title, duration, getDownloadQueue, getActiveDownload){
+	console.log('handle download called');
+	console.log(getDownloadQueue(), getActiveDownload);
+	let dlq = getDownloadQueue();
+	if(dlq.includes({ id, title, duration })){
+		return;
+	}
+	if(getActiveDownload() != null){
+		bundle.addDownloadToQueue({id, title, duration});
+	} else {
+		bundle.setActiveDownload(id);
+		requestFile(id)
+	.then(() => {
+		return getDownload(id, title, bundle.user, duration);
+	})
+	.then(() => {
+		bundle.addToDownloaded(id, title, duration);
+		bundle.setActiveDownload(null);
+		getImage(id);
+		console.log('DECIDING DECIDING DECIDING');
+		if(getDownloadQueue().length > 0){
+			const next = getDownloadQueue()[0];
+			bundle.shiftDownloadQueue();
+			console.log('CALLING NEXT HANDLE DOWNLOAD');
+			handleDownload(bundle, next.id, next.title, next.duration, getDownloadQueue, getActiveDownload);
+		}
+	})
+	.catch((err) => {
+		console.log(err);
+		bundle.setActiveDownload(null);
+	});
+	}
+}
+
 export function getDownload(id, title, user, duration){
+	console.log('DOWNLOADINGNGNG', id, title);
 	let url = 'http://104.236.165.165/api/download/' + id;
 	let path = RNFetchBlob.fs.dirs.DocumentDir + '/' + id + '.mp3';
 	return RNFetchBlob

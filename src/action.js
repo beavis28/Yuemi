@@ -39,11 +39,12 @@ export const shiftDownloadQueue = () => {
 	};
 };
 
-export const addToDownloaded = (id, obj) => {
+export const addToDownloaded = (id, title, duration) => {
 	return {
 		type: 'ADD_TO_DOWNLOADED',
 		id,
-		obj
+		title,
+		duration
 	};
 };
 
@@ -205,3 +206,12 @@ export const setRepeat = (value) => {
 		value,
 	};
 };
+
+export const updateDownload = (id, obj) => {
+	return {
+		type: 'UPDATE_DOWNLOAD',
+		id,
+		artist: obj.artist,
+		title: obj.title,
+	}
+}
