@@ -13,14 +13,25 @@ class Audio {
 		this.setPlaying = bundle.setPlaying;
 		this.updateTime = bundle.updateTime;
 		this.updatePaused = bundle.updatePaused;
+		this.getData = bundle.getData;
+		this.shuffledList = this.shuffle(this.playlist); // shuffling isn't perfect
+										// should generate a new shuffle every time
 		// init
 		this.index = bundle.index;
+		this.shuffledIndex = 0;
 		this.playNew();
 	}
 
 	playNew(){
-		const id = this.playlist[this.index];
-		this.index++;
+		let id;
+		if(this.getData().shuffle){
+			id = this.shuffledList[this.shuffledIndex];
+			this.shuffledIndex++;
+			this.index = _.indexOf(this.playlist, id) + 1;
+		} else {
+			id = this.playlist[this.index];
+			this.index++;
+		}
 		if(this.soundObj != null){
 			this.stopAndReleaseSoundObject();
 		}
@@ -39,7 +50,7 @@ class Audio {
 
 	playMusic(){
 		this.soundObj.play(this.onMusicEnd());
-		setTimeout(this.sustainTimeLog.bind(this), 1000);
+		setTimeout(this.sustainTimeLog.bind(this, this.soundObj), 1000);
 		this.updatePaused(false);
 	}
 
@@ -55,11 +66,11 @@ class Audio {
 		}
 	}
 
-	sustainTimeLog(){
+	sustainTimeLog(soundObj){
 		this.getTime((seconds, isPlaying) => {
-			if(isPlaying){
+			if(isPlaying && this.soundObj === soundObj){
 				this.updateTime(seconds);
-				setTimeout(this.sustainTimeLog.bind(this), 1000);
+				setTimeout(this.sustainTimeLog.bind(this, soundObj), 1000);
 			}
 		});
 	}
@@ -74,10 +85,19 @@ class Audio {
 	}
 
 	skipPrev(){
-		if(this.index > 1){
-			this.index -= 2;
+		if(this.getData().shuffle){
+			if(this.shuffledIndex > 1){
+				this.shuffledIndex -= 2;
+			} else {
+				this.shuffledIndex--;
+			}
+			this.index = _.indexOf(this.playlist, this.shuffledList[this.shuffledIndex]) + 1;
 		} else {
-			this.index--;
+			if(this.index > 1){
+				this.index -= 2;
+			} else {
+				this.index--;
+			}
 		}
 		this.playNew();
 	}
@@ -101,13 +121,14 @@ class Audio {
 	}
 
 	shuffle(arr){
-		for (let i = arr.length - 1; i > 0; i--) {
+		let out = arr.slice();
+		for (let i = out.length - 1; i > 0; i--) {
 			let j = Math.floor(Math.random() * (i + 1));
-			let temp = arr[i];
-			arr[i] = arr[j];
-			arr[j] = temp;
+			let temp = out[i];
+			out[i] = out[j];
+			out[j] = temp;
 		}
-		return arr;	
+		return out;	
 	}
 
 	static parseSeconds(seconds) {

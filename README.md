@@ -34,12 +34,12 @@ Trust me. 相信我。
 25. Relay percent video dl to app
 26. ~~Remove topics from results.~~
 27. ~~Settings deletes everything in documents dir. It should only delete songs in downloads obj.~~
-28. Make playlists tab look not ugly
-29. Get playlist name to show up in nav header
+28. ~~Make playlists tab look not ugly~~
+29. ~~Get playlist name to show up in nav header~~
 30. ~~Remove playlist option~~
 31. Add animations to everything (specifically Music row options)
 32. ~~Fix skip buttons on bottom player (iphone player gets messed up)~~
-33. pressing back button when on first song in playlist makes audio update on multiple ticks
+33. ~~pressing back button when on first song in playlist makes audio update on multiple ticks~~
 34. ~~Remove FROM playlist option~~
 35. OAuth2 with JWT's
 36. Shouldn't create playlists with same name

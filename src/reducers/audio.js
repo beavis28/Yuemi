@@ -7,6 +7,8 @@ const getInitialState = () => {
 		duration: 0,
 		seconds: 0,
 		paused: false,
+		shuffle: false,
+		repeat: false,
 	};
 };
 
@@ -43,6 +45,18 @@ const audio = (state=getInitialState(), action) => {
 		newState.duration = action.obj.duration;
 		newState.seconds = 0;
 		newState.paused = false;
+		return newState;
+	}
+
+	case 'SET_SHUFFLE': {
+		newState = copyState(state);
+		newState.shuffle = action.value;
+		return newState;
+	}
+
+	case 'SET_REPEAT': {
+		newState = copyState(state);
+		newState.repeat = action.value;
 		return newState;
 	}
 

@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, Modal, Image, Slider } from 'react-native';
 import RNFetchBlob from 'react-native-fetch-blob';
 import { connect } from 'react-redux';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import styles from './styles';
 import { musicInterface } from 'Yuemi/src/lib/audio';
 import {
-	setPlaying, unsetPlaying, updateTime, updatePaused
+	setPlaying, unsetPlaying, updateTime, updatePaused,
+	setShuffle, setRepeat
 } from 'Yuemi/src/action';
 import Audio from 'Yuemi/src/lib/audio';
 
@@ -48,7 +49,7 @@ class PlayerFull extends Component {
 		if(this.props.current.paused){
 			return (
 				<Icon
-					name='play-circle-filled'
+					name='play-circle'
 					size={75}
 					color='#ff6666'
 					onPress={this._musicInterface.bind(this)}
@@ -57,7 +58,7 @@ class PlayerFull extends Component {
 		} else {
 			return (
 				<Icon
-					name='pause-circle-filled'
+					name='pause-circle'
 					size={75}
 					color='#ff6666'
 					onPress={this._musicInterface.bind(this)}
@@ -78,7 +79,7 @@ class PlayerFull extends Component {
 					<View style={styles.playerFull}>
 						<View style={styles.chevronContainer}>
 							<Icon
-								name='keyboard-arrow-down'
+								name='chevron-down'
 								size={40}
 								color='#ff6666'
 								onPress={() => this.props.setModal(false)}
@@ -122,6 +123,12 @@ class PlayerFull extends Component {
 						<View style={styles.controlsContainer}>
 							<View style={styles.iconContainer}>
 								<Icon
+									name={this.props.repeat ? 'repeat' : 'repeat-off'}
+									size={20}
+									color='#000'
+									onPress={() => this.props.setRepeat(!this.props.repeat)}
+								/>
+								<Icon
 									name='skip-previous' size={30}
 									color='#000'
 									onPress={this._skipPrev.bind(this)}
@@ -131,6 +138,12 @@ class PlayerFull extends Component {
 									name='skip-next' size={30}
 									color='#000'
 									onPress={this._skipNext.bind(this)}
+								/>
+								<Icon
+									name={this.props.shuffle ? 'shuffle' : 'shuffle-disabled'}
+									size={20}
+									color='#000'
+									onPress={() => this.props.setShuffle(!this.props.shuffle)}
 								/>
 							</View>
 						</View>
@@ -150,6 +163,9 @@ const mapStateToProps = (state) => {
 		current: state.audio,
 		seconds: state.audio.seconds,
 		duration: state.audio.duration,
+		shuffle: state.audio.shuffle,
+		repeat: state.audio.repeat,
+
 		downloaded: state.downloaded.downloaded,
 		playlist: state.playlist.playlist,
 	};
@@ -168,6 +184,12 @@ const mapDispatchToProps = (dispatch) => {
 		},
 		updatePaused: (value) => {
 			dispatch(updatePaused(value));
+		},
+		setShuffle: (value) => {
+			dispatch(setShuffle(value));
+		},
+		setRepeat: (value) => {
+			dispatch(setRepeat(value));
 		},
 	};
 };

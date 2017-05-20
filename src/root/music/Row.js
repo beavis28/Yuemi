@@ -26,21 +26,28 @@ class Row extends PureComponent {
 	_musicInterface(){
 		const {
 			current, updatePaused, setPlaying,
-			unsetPlaying, updateTime, id, downloaded
+			unsetPlaying, updateTime, id, downloaded,
+			playlist
 		} = this.props;
-		let playlist = this.props.playlist;
 		let index = this._getPlaylistIndex(playlist, id);
+		let getData = this._getData.bind(this);
 		let bundle = {
 			current, playlist,
 			unsetPlaying, setPlaying,
 			updateTime, updatePaused,
-			index
+			index, getData,
 		};
 		if(this.props.audioObj != null){
 			this.props.audioObj.endMusic();
 		}
 		let audio = new Audio(bundle);
 		this.props.setAudio(audio);
+	}
+
+	_getData(){
+		const repeat = this.props.repeat;
+		const shuffle = this.props.shuffle;
+		return { repeat, shuffle };
 	}
 
 	_getPlaylistIndex(list, id){
@@ -151,7 +158,7 @@ class Row extends PureComponent {
 						{this.props.title}
 					</Text>
 					<Text style={this.props.currentId == this.props.id ? styles.listTextPlaying : styles.listText} numberOfLines={1}>
-						{'Artist Name - ' + this.props.downloaded[this.props.id].duration}
+						{'Unknown Artist - ' + this.props.downloaded[this.props.id].duration}
 					</Text>
 				</View>
 				<View style={styles.moreContainer}>
@@ -206,6 +213,8 @@ const mapStateToProps = (state, ownProps) => {
 	return {
 		audioObj: state.audio.audio,
 		currentId: state.audio.id,
+		shuffle: state.audio.shuffle,
+		repeat: state.audio.repeat,
 		activeMenuId: state.me.activeMenuId,
 		downloaded: state.downloaded.downloaded,
 		title: state.downloaded.downloaded[ownProps.id].title,

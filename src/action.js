@@ -191,3 +191,17 @@ export const deletePlaylist = (name) => {
 		name,
 	};
 };
+
+export const setShuffle = (value) => {
+	return {
+		type: 'SET_SHUFFLE',
+		value,
+	};
+};
+
+export const setRepeat = (value) => {
+	return {
+		type: 'SET_REPEAT',
+		value,
+	};
+};
