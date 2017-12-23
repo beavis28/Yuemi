@@ -8,8 +8,8 @@
   },
   "dependencies": {
     "lodash": "^4.17.4",
-    "react": "16.0.0-alpha.6",
-    "react-native": "0.43.4",
+    "react": "16.0.0",
+    "react-native": "^0.51.0",
     "react-native-fetch-blob": "^0.10.4",
     "react-native-slider": "^0.9.1",
     "react-native-sound": "0.9.0",
