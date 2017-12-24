@@ -4,7 +4,7 @@ import _ from 'lodash';
 
 class Audio {
 
-	constructor(bundle){
+	constructor(bundle) {
 		// state
 		this.playlist = bundle.playlist;
 		// actions
@@ -15,16 +15,16 @@ class Audio {
 		this.updatePaused = bundle.updatePaused;
 		this.getData = bundle.getData;
 		this.shuffledList = this.shuffle(this.playlist); // shuffling isn't perfect
-										// should generate a new shuffle every time
+		// should generate a new shuffle every time
 		// init
 		this.index = bundle.index;
 		this.shuffledIndex = 0;
 		this.playNew();
 	}
 
-	playNew(){
+	playNew() {
 		let id;
-		if(this.getData().shuffle){
+		if (this.getData().shuffle) {
 			id = this.shuffledList[this.shuffledIndex];
 			this.shuffledIndex++;
 			this.index = _.indexOf(this.playlist, id) + 1;
@@ -32,15 +32,16 @@ class Audio {
 			id = this.playlist[this.index];
 			this.index++;
 		}
-		if(this.soundObj != null){
+		if (this.soundObj != null) {
 			this.stopAndReleaseSoundObject();
 		}
 		let soundObj = new Sound('/' + id + '.mp3', RNFetchBlob.fs.dirs.DocumentDir, (error) => {
 			if (error) {
+				console.log('Audio playback error:', error);
 				this.unsetPlaying();
 			} else {
 				let duration = soundObj.getDuration();
-				const next = {id, duration};
+				const next = { id, duration };
 				this.setPlaying(next);
 				this.soundObj = soundObj;
 				this.playMusic();
@@ -48,14 +49,14 @@ class Audio {
 		});
 	}
 
-	playMusic(){
+	playMusic() {
 		this.soundObj.play(this.onMusicEnd());
 		setTimeout(this.sustainTimeLog.bind(this, this.soundObj), 1000);
 		this.updatePaused(false);
 	}
 
-	onMusicEnd(){
-		if(this.playlist.length > 0){
+	onMusicEnd() {
+		if (this.playlist.length > 0) {
 			return () => {
 				this.playNew();
 			};
@@ -66,34 +67,34 @@ class Audio {
 		}
 	}
 
-	sustainTimeLog(soundObj){
+	sustainTimeLog(soundObj) {
 		this.getTime((seconds, isPlaying) => {
-			if(isPlaying && this.soundObj === soundObj){
+			if (isPlaying && this.soundObj === soundObj) {
 				this.updateTime(seconds);
 				setTimeout(this.sustainTimeLog.bind(this, soundObj), 1000);
 			}
 		});
 	}
 
-	stopAndReleaseSoundObject(){
+	stopAndReleaseSoundObject() {
 		this.soundObj.stop();
 		this.soundObj.release();
 	}
 
-	skipNext(){
+	skipNext() {
 		this.playNew();
 	}
 
-	skipPrev(){
-		if(this.getData().shuffle){
-			if(this.shuffledIndex > 1){
+	skipPrev() {
+		if (this.getData().shuffle) {
+			if (this.shuffledIndex > 1) {
 				this.shuffledIndex -= 2;
 			} else {
 				this.shuffledIndex--;
 			}
 			this.index = _.indexOf(this.playlist, this.shuffledList[this.shuffledIndex]) + 1;
 		} else {
-			if(this.index > 1){
+			if (this.index > 1) {
 				this.index -= 2;
 			} else {
 				this.index--;
@@ -102,25 +103,25 @@ class Audio {
 		this.playNew();
 	}
 
-	endMusic(){
+	endMusic() {
 		this.stopAndReleaseSoundObject();
 		this.unsetPlaying();
 	}
 
-	getTime(onResolve){
+	getTime(onResolve) {
 		this.soundObj.getCurrentTime(onResolve);
 	}
 
-	setTime(value){
+	setTime(value) {
 		this.soundObj.setCurrentTime(value);
 	}
 
-	pauseMusic(){
+	pauseMusic() {
 		this.soundObj.pause();
 		this.updatePaused(true);
 	}
 
-	shuffle(arr){
+	shuffle(arr) {
 		let out = arr.slice();
 		for (let i = out.length - 1; i > 0; i--) {
 			let j = Math.floor(Math.random() * (i + 1));
@@ -128,7 +129,7 @@ class Audio {
 			out[i] = out[j];
 			out[j] = temp;
 		}
-		return out;	
+		return out;
 	}
 
 	static parseSeconds(seconds) {

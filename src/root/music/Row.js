@@ -19,11 +19,11 @@ import styles from './styles';
 
 class Row extends PureComponent {
 
-	constructor(){
+	constructor() {
 		super();
 	}
 
-	_musicInterface(){
+	_musicInterface() {
 		const {
 			current, updatePaused, setPlaying,
 			unsetPlaying, updateTime, id, downloaded,
@@ -37,87 +37,89 @@ class Row extends PureComponent {
 			updateTime, updatePaused,
 			index, getData,
 		};
-		if(this.props.audioObj != null){
+		if (this.props.audioObj != null) {
 			this.props.audioObj.endMusic();
 		}
 		let audio = new Audio(bundle);
 		this.props.setAudio(audio);
 	}
 
-	_getData(){
+	_getData() {
 		const repeat = this.props.repeat;
 		const shuffle = this.props.shuffle;
 		return { repeat, shuffle };
 	}
 
-	_edit(){
+	_edit() {
 		this.props.setActiveMenu('');
 		this.props.editSong(this.props.id);
 	}
 
-	_getPlaylistIndex(list, id){
+	_getPlaylistIndex(list, id) {
 		const index = _.indexOf(list, id);
-		if(index > -1){
+		if (index > -1) {
 			return index;
 		}
 		return 0;
 	}
 
-	_playlistAdd(){
+	_playlistAdd() {
 		this.props.setActiveMenu('');
-		this.props.navigation.navigate('EditPlaylists', {song: this.props.id});
+		this.props.navigation.navigate('EditPlaylists', { song: this.props.id });
 	}
 
-	_unlinkFile(){
-		if(this.props.audioObj != null){
+	_unlinkFile() {
+		if (this.props.audioObj != null) {
 			this.props.audioObj.endMusic();
 		}
 		const path = RNFetchBlob.fs.dirs.DocumentDir + '/' + this.props.id;
 		RNFetchBlob.fs.unlink(path + '.mp3')
-		.then(() => {
-			console.log('DELETED:', path + '.mp3');
-		})
-		.catch((err) => {
-			console.log('ERR: ', err);
-		});
+			.then(() => {
+				console.log('DELETED:', path + '.mp3');
+			})
+			.catch((err) => {
+				console.log('ERR: ', err);
+			});
 		RNFetchBlob.fs.unlink(path + '.jpg')
-		.then(() => {
-			console.log('DELETED:', path + '.jpg');
-		})
-		.catch((err) => {
-			console.log('ERR: ', err);
-		});
+			.then(() => {
+				console.log('DELETED:', path + '.jpg');
+			})
+			.catch((err) => {
+				console.log('ERR: ', err);
+			});
 	}
 
-	_deleteSong(){
+	_deleteSong() {
 		Alert.alert(
 			'Are you sure you want to delete this song?',
 			this.props.title,
 			[
-				{text: 'YES', onPress: () => {
-					this._unlinkFile(this.props.id);
-					this.props.deleteSong(this.props.id);
-					this.props.setActiveMenu('');
-				}},
-				{text: 'CANCEL'},
+				{
+					text: 'YES', onPress: () => {
+						this._unlinkFile(this.props.id);
+						this.props.deleteSong(this.props.id);
+						this.props.setActiveMenu('');
+					}
+				},
+				{ text: 'CANCEL' },
 			]
 		);
 	}
 
-	renderImage(){
-		return(
+	renderImage() {
+		return (
 			<Image
-				source={{uri: 'file:///' + RNFetchBlob.fs.dirs.DocumentDir + '/' + this.props.id + '.jpg'}}
+				source={{ uri: 'file:///' + RNFetchBlob.fs.dirs.DocumentDir + '/' + this.props.id + '.jpg' }}
 				style={styles.songImage}
 			/>
 		);
 	}
 
-	renderMenu(){
+	renderMenu() {
 		return (
 			<View style={styles.menu}>
 				<View style={styles.menuOption}>
-					<Icon 
+					<Icon
 						name='delete'
 						size={40}
 						color='#fff'
@@ -125,7 +127,7 @@ class Row extends PureComponent {
 					/>
 				</View>
 				<View style={styles.menuOption}>
-					<Icon 
+					<Icon
 						name='playlist-add'
 						size={40}
 						color='#fff'
@@ -133,7 +135,7 @@ class Row extends PureComponent {
 					/>
 				</View>
 				<View style={styles.menuOption}>
-					<Icon 
+					<Icon
 						name='edit'
 						size={40}
 						color='#fff'
@@ -141,7 +143,7 @@ class Row extends PureComponent {
 					/>
 				</View>
 				<View style={styles.menuOption}>
-					<Icon 
+					<Icon
 						name='cancel'
 						size={40}
 						color='#fff'
@@ -152,15 +154,15 @@ class Row extends PureComponent {
 		);
 	}
 
-	_handlePressCancel(){
+	_handlePressCancel() {
 		this.props.setActiveMenu('');
 	}
 
-	_handlePressMore(){
+	_handlePressMore() {
 		this.props.setActiveMenu(this.props.id);
 	}
 
-	renderContent(){
+	renderContent() {
 		const download = this.props.downloaded[this.props.id];
 		return (
 			<View style={styles.listRow}>
@@ -172,11 +174,11 @@ class Row extends PureComponent {
 						{this.props.title}
 					</Text>
 					<Text style={this.props.currentId == this.props.id ? styles.listTextPlaying : styles.listText} numberOfLines={1}>
-						{ download.artist + ' - ' + download.duration}
+						{download.artist + ' - ' + download.duration}
 					</Text>
 				</View>
 				<View style={styles.moreContainer}>
-					<Icon 
+					<Icon
 						name='more-vert'
 						size={30}
 						color='#000'
@@ -187,8 +189,8 @@ class Row extends PureComponent {
 		);
 	}
 
-	renderSong(){
-		if(Platform.OS == 'ios'){
+	renderSong() {
+		if (Platform.OS == 'ios') {
 			return (
 				<TouchableHighlight onPress={this._musicInterface.bind(this)} underlayColor='#ddd'>
 					{this.renderContent()}
@@ -202,23 +204,22 @@ class Row extends PureComponent {
 			);
 		}
 	}
-	
-	shouldComponentUpdate(nextProps){
-		console.log(nextProps.title, nextProps.artist);
-		if(this.props.id == this.props.activeMenuId || this.props.id == nextProps.activeMenuId){
+
+	shouldComponentUpdate(nextProps) {
+		if (this.props.id == this.props.activeMenuId || this.props.id == nextProps.activeMenuId) {
 			return true;
-		} else if(this.props.id == this.props.currentId || this.props.id == nextProps.currentId){
+		} else if (this.props.id == this.props.currentId || this.props.id == nextProps.currentId) {
 			return true;
-		} else if(this.props.title != nextProps.title || this.props.artist != nextProps.artist){
+		} else if (this.props.title != nextProps.title || this.props.artist != nextProps.artist) {
 			return true;
 		} else {
 			return false;
 		}
 	}
 
-	render(){
+	render() {
 		console.log('MUSIC_ROW_RENDERING');
-		if(this.props.activeMenuId == this.props.id){
+		if (this.props.activeMenuId == this.props.id) {
 			return this.renderMenu();
 		} else {
 			return this.renderSong();
