@@ -10,28 +10,13 @@ import {
 } from 'Yuemi/src/action';
 
 class Row extends Component {
-	constructor(){
+	constructor() {
 		super();
 	}
 
-	_getPhrase(){
-		const userlen = this.props.data.users.length;
-		const user = this.props.data.users[0];
-		if(userlen == 1){
-			return 'TestUser' + ' downloaded:';
-		} else if(userlen == 2){
-			return user + ' +1 other downloaded:';
-		} else {
-			return user + ' +' + userlen + ' others downloaded:';
-		}
-	}
-
-	render(){
+	render() {
 		return (
 			<View style={styles.rowContainer}>
-				<Text style={styles.userText}>
-					{this._getPhrase()}
-				</Text>
 				<Text style={styles.listRowText} numberOfLines={2}>
 					{this.props.data.title}
 				</Text>

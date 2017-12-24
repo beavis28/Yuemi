@@ -15,30 +15,30 @@ import {
 
 class Feed extends Component {
 
-	constructor(){
+	constructor() {
 		super();
 	}
 
-	componentDidMount(){
+	componentDidMount() {
 		this._onRefresh();
 	}
 
-	_onRefresh(){
+	_onRefresh() {
 		let feedList = [];
 		getFeed()
 			.then((json) => {
-				json.forEach((elem) => feedList.push({title: elem.title, users: elem.users, duration: elem.duration}));
+				json.forEach((elem) => feedList.push({ title: elem.title, users: elem.users, duration: elem.duration }));
 				this.props.updateFeed(feedList);
 			});
 	}
 
-	renderSeparator(){
+	renderSeparator() {
 		return (
 			<View style={{
 				height: 1,
 				backgroundColor: '#fff',
 				width: '100%',
-			}}/>
+			}} />
 		);
 	}
 
@@ -49,7 +49,7 @@ class Feed extends Component {
 					style={styles.list}
 					data={this.props.feedList}
 					keyExtractor={(item, index) => index}
-					renderItem={({item}) => <Row data={item}/>}
+					renderItem={({ item }) => <Row data={item} />}
 					onRefresh={this._onRefresh.bind(this)}
 					refreshing={false}
 					ItemSeparatorComponent={this.renderSeparator}
